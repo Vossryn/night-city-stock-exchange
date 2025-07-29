@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project is a web-based playground simulating a fictional stock exchange set in Night City, the iconic metropolis from Cyberpunk 2077. The platform allows users to experience the thrill of trading virtual stocks tied to corporations, gangs, and assets inspired by the lore of Night City. The goal is to provide an engaging, educational, and entertaining environment for fans of Cyberpunk and finance, featuring dynamic market events, leaderboards, and thematic challenges. The site will emphasize the city's unique blend of opportunity, risk, and corporate intrigue, immersing users in the world of Night City while learning about trading strategies and market dynamics—all with no real money involved.
+This project is a web-based playground simulating a fictional stock exchange set in Night City, the iconic metropolis from Cyberpunk 2077. The platform allows users to experience the thrill of trading virtual stocks tied to corporations, gangs, and assets inspired by the lore of Night City. The goal is to provide an engaging, educational, and entertaining environment for fans of Cyberpunk and finance, featuring dynamic market events. The site will emphasize the city's unique blend of opportunity, risk, and corporate intrigue, immersing users in the world of Night City while learning about trading strategies and market dynamics—all with no real money involved.
 
 ---
 

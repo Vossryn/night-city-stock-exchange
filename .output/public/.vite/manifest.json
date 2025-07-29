@@ -1,0 +1,27 @@
+{
+  "../../~start/default-client-entry.tsx": {
+    "file": "assets/main-FfGgZ7I0.js",
+    "name": "main",
+    "src": "../../~start/default-client-entry.tsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "src/routes/index.tsx?tsr-split=component"
+    ],
+    "assets": [
+      "assets/app-Cco-0rvH.css"
+    ]
+  },
+  "C:/projects/night-city-stock-exchange/src/styles/app.css": {
+    "file": "assets/app-Cco-0rvH.css",
+    "src": "C:/projects/night-city-stock-exchange/src/styles/app.css"
+  },
+  "src/routes/index.tsx?tsr-split=component": {
+    "file": "assets/index-C5k4a7TF.js",
+    "name": "index",
+    "src": "src/routes/index.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "../../~start/default-client-entry.tsx"
+    ]
+  }
+}
