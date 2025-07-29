@@ -33,11 +33,15 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
+import { ThemeProvider } from "@/components/theme-provider";
+
 function RootComponent() {
   return (
-    <RootDocument>
-      <Outlet />
-    </RootDocument>
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+      <RootDocument>
+        <Outlet />
+      </RootDocument>
+    </ThemeProvider>
   );
 }
 

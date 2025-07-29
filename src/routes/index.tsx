@@ -1,3 +1,4 @@
+import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
@@ -24,25 +25,35 @@ const updateCount = createServerFn({ method: "POST" })
     await fs.promises.writeFile(filePath, `${count + data}`);
   });
 
-export const Route = createFileRoute("/")({
-  component: Home,
-  loader: async () => await getCount(),
-});
-
 function Home() {
   const router = useRouter();
   const state = Route.useLoaderData();
 
   return (
-    <Button
-      variant={"default"}
-      onClick={() => {
-        updateCount({ data: 1 }).then(() => {
-          router.invalidate();
-        });
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 16,
+        alignItems: "flex-start",
       }}
     >
-      Add 1 to {state}?
-    </Button>
+      <ModeToggle />
+      <Button
+        variant={"default"}
+        onClick={() => {
+          updateCount({ data: 1 }).then(() => {
+            router.invalidate();
+          });
+        }}
+      >
+        Add 1 to {state}?
+      </Button>
+    </div>
   );
 }
+
+export const Route = createFileRoute("/")({
+  component: Home,
+  loader: async () => await getCount(),
+});
