@@ -49,6 +49,56 @@ function Home() {
       >
         Add 1 to {state}?
       </Button>
+      <Button
+        variant={"destructive"}
+        onClick={() => {
+          updateCount({ data: 1 }).then(() => {
+            router.invalidate();
+          });
+        }}
+      >
+        Add 1 to {state}?
+      </Button>
+      <Button
+        variant={"ghost"}
+        onClick={() => {
+          updateCount({ data: 1 }).then(() => {
+            router.invalidate();
+          });
+        }}
+      >
+        Add 1 to {state}?
+      </Button>
+      <Button
+        variant={"link"}
+        onClick={() => {
+          updateCount({ data: 1 }).then(() => {
+            router.invalidate();
+          });
+        }}
+      >
+        Add 1 to {state}?
+      </Button>
+      <Button
+        variant={"outline"}
+        onClick={() => {
+          updateCount({ data: 1 }).then(() => {
+            router.invalidate();
+          });
+        }}
+      >
+        Add 1 to {state}?
+      </Button>
+      <Button
+        variant={"secondary"}
+        onClick={() => {
+          updateCount({ data: 1 }).then(() => {
+            router.invalidate();
+          });
+        }}
+      >
+        Add 1 to {state}?
+      </Button>
     </div>
   );
 }

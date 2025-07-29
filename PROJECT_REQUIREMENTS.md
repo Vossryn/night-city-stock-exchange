@@ -56,15 +56,15 @@ Frontend: React for building the UI, styled with TailwindCSS and Shadcn for mode
 Art Style & Color Palette:
 The visual design and coloring of the site will be directly influenced by Cyberpunk 2077. The core color palette includes:
 
-- Neon Yellow: #fee801 (primary branding color)
-- Electric Blue: #54c1e6
-- Cyan: #39c4b6
-- Hot Pink / Magenta: #c5003c
-- Deep Purple: #880425
-- Black: #000000
-- Dark Blue: #00060e
-- Acid Green: #9a9f17
-- White: #f3e600
+- Neon Yellow: `oklch(97.5% 0.29 105.7)` (primary branding color)
+- Electric Blue: `oklch(77.6% 0.18 217.7)`
+- Cyan: `oklch(77.7% 0.14 200.6)`
+- Hot Pink / Magenta: `oklch(54.6% 0.22 19.7)`
+- Deep Purple: `oklch(32.7% 0.13 22.2)`
+- Black: `oklch(0% 0 0)`
+- Dark Blue: `oklch(13.2% 0.03 258.1)`
+- Acid Green: `oklch(77.2% 0.18 110.2)`
+- White: `oklch(99.1% 0.01 104.2)`
 
 These colors should be used to evoke the vibrant, neon-lit, and gritty atmosphere of Night City, consistent with the Cyberpunk 2077 aesthetic.
 
@@ -108,58 +108,47 @@ API integration for external data (if needed for educational content or news fee
 Below is an overview of the main pages required for the Night City Stock Exchange platform, including their purpose and key features:
 
 - **Landing / Home Page**
-
   - Welcome message, branding, and call-to-action.
   - Highlights features, recent market events, and login/register options.
 
 - **Registration & Login Pages**
-
   - Secure user authentication (register, login, password reset).
   - Social login options (if supported).
 
 - **Dashboard**
-
   - User’s portfolio summary, balance, recent activity, and quick links.
   - Overview of market status and personal performance.
 
 - **Market / Trading Page**
-
   - Browse and search all available stocks (corporations, gangs, assets).
   - View real-time prices, charts, and company details.
   - Buy/sell interface for executing trades.
 
 - **Company / Asset Detail Page**
-
   - Detailed info about a specific company/gang/asset.
   - Price history, description, logo, and related market events.
 
 - **Transaction History Page**
-
   - List of all user trades and transactions.
   - Filter and search by date, type, asset, etc.
 
 - **Market Events Page**
-
   - Timeline and details of dynamic market events (e.g., corporate wars, scandals).
   - Impact analysis and links to affected assets.
 
 - **Challenges & Special Events Page**
-
   - List and details of current and upcoming thematic challenges.
   - Progress tracking and rewards info.
 
 - **Analytics & Performance Page**
-
   - Advanced portfolio analytics, historical performance, and visualizations.
   - Educational insights and strategy tips.
 
 - **Profile & Settings Page**
-
   - Manage user info, avatar, password, and notification preferences.
   - GDPR/account deletion and accessibility settings.
 
 - **Help & Tutorials Page**
-
   - Educational resources, trading tutorials, and FAQ.
   - Contact/support info.
 
