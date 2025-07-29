@@ -1,0 +1,21 @@
+{
+  "name": "night-city-stock-exchange",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vossryn/night-city-stock-exchange.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Vossryn/night-city-stock-exchange/issues"
+  },
+  "homepage": "https://github.com/Vossryn/night-city-stock-exchange#readme"
+}
