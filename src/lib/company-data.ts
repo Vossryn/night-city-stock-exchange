@@ -43,7 +43,7 @@ import villefortLogo from "@/assets/company_logos/Villefort.png";
 import yaibaLogo from "@/assets/company_logos/Yaiba.png";
 import zetatechLogo from "@/assets/company_logos/Zetatech.png";
 
-export interface Company {
+export interface ICompanyData {
   name: string;
   image: any;
   type: Array<string>;
@@ -63,7 +63,7 @@ export interface Company {
   trending: number;
 }
 
-export const company_data = [
+export const company_data: Array<ICompanyData> = [
   {
     name: "All Foods",
     image: allFoodsLogo,
