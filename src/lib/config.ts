@@ -7,11 +7,13 @@ const clientEnvSchema = z.object({
   VITE_MARKET_TICK_RATE: z.coerce.number().default(5000),
   VITE_ENABLE_DEBUG_TOOLS: z.coerce.boolean().default(false),
   VITE_GOOGLE_CLIENT_ID: z.string().min(1, 'VITE_GOOGLE_CLIENT_ID is required'),
+  VITE_GITHUB_CLIENT_ID: z.string().min(1, 'VITE_GITHUB_CLIENT_ID is required'),
 })
 
 // Server-side environment variables
 const serverEnvSchema = z.object({
   VITE_GOOGLE_CLIENT_SECRET: z.string().min(1, 'VITE_GOOGLE_CLIENT_SECRET is required'),
+  VITE_GITHUB_CLIENT_SECRET: z.string().min(1, 'VITE_GITHUB_CLIENT_SECRET is required'),
 })
 
 const _clientEnv = clientEnvSchema.safeParse(import.meta.env)
@@ -27,10 +29,12 @@ export const clientConfig = {
   marketTickRate: _clientEnv.data.VITE_MARKET_TICK_RATE,
   enableDebugTools: _clientEnv.data.VITE_ENABLE_DEBUG_TOOLS,
   googleClientId: _clientEnv.data.VITE_GOOGLE_CLIENT_ID,
+  githubClientId: import.meta.env.VITE_GITHUB_CLIENT_ID || '',
 } as const
 
 type ServerConfig = {
   googleClientSecret: string
+  githubClientSecret: string
 }
 
 export const serverConfig: ServerConfig = (() => {
@@ -47,5 +51,6 @@ export const serverConfig: ServerConfig = (() => {
 
   return {
     googleClientSecret: _serverEnv.data.VITE_GOOGLE_CLIENT_SECRET,
+    githubClientSecret: _serverEnv.data.VITE_GITHUB_CLIENT_SECRET || '',
   }
 })()
