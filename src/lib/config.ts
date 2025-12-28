@@ -1,22 +1,51 @@
 import { z } from 'zod'
 
-const envSchema = z.object({
+// Client-side environment variables
+const clientEnvSchema = z.object({
   VITE_APP_TITLE: z.string().default('Night City Stock Exchange'),
   VITE_INITIAL_CASH: z.coerce.number().default(10000),
   VITE_MARKET_TICK_RATE: z.coerce.number().default(5000),
   VITE_ENABLE_DEBUG_TOOLS: z.coerce.boolean().default(false),
+  VITE_GOOGLE_CLIENT_ID: z.string().min(1, 'VITE_GOOGLE_CLIENT_ID is required'),
 })
 
-const _env = envSchema.safeParse(import.meta.env)
+// Server-side environment variables
+const serverEnvSchema = z.object({
+  VITE_GOOGLE_CLIENT_SECRET: z.string().min(1, 'VITE_GOOGLE_CLIENT_SECRET is required'),
+})
 
-if (!_env.success) {
-  console.error('❌ Invalid environment variables:', _env.error.format())
-  throw new Error('Invalid environment variables')
+const _clientEnv = clientEnvSchema.safeParse(import.meta.env)
+
+if (!_clientEnv.success) {
+  console.error('❌ Invalid client environment variables:', _clientEnv.error.format())
+  throw new Error('Invalid client environment variables')
 }
 
-export const config = {
-  appTitle: _env.data.VITE_APP_TITLE,
-  initialCash: _env.data.VITE_INITIAL_CASH,
-  marketTickRate: _env.data.VITE_MARKET_TICK_RATE,
-  enableDebugTools: _env.data.VITE_ENABLE_DEBUG_TOOLS,
+export const clientConfig = {
+  appTitle: _clientEnv.data.VITE_APP_TITLE,
+  initialCash: _clientEnv.data.VITE_INITIAL_CASH,
+  marketTickRate: _clientEnv.data.VITE_MARKET_TICK_RATE,
+  enableDebugTools: _clientEnv.data.VITE_ENABLE_DEBUG_TOOLS,
+  googleClientId: _clientEnv.data.VITE_GOOGLE_CLIENT_ID,
 } as const
+
+type ServerConfig = {
+  googleClientSecret: string
+}
+
+export const serverConfig: ServerConfig = (() => {
+  if (typeof window !== 'undefined') {
+    return {} as ServerConfig
+  }
+
+  const _serverEnv = serverEnvSchema.safeParse(import.meta.env)
+
+  if (!_serverEnv.success) {
+    console.error('❌ Invalid server environment variables:', _serverEnv.error.format())
+    throw new Error('Invalid server environment variables')
+  }
+
+  return {
+    googleClientSecret: _serverEnv.data.VITE_GOOGLE_CLIENT_SECRET,
+  }
+})()
