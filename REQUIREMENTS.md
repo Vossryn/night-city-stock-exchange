@@ -11,11 +11,10 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
     - Buying and selling mechanics with transaction history.
     - Client-side data persistence (save game).
     - Responsive dashboard with charts and company details.
+    - User Authentication (Stateless JWT via GitHub/Google OAuth).
 - **Out of Scope:**
     - Multiplayer features or leaderboards (MVP).
     - Real-money transactions.
-    - Backend server integration (Client-side only logic for MVP).
-    - User authentication (Local device only).
 
 ## 2. User Personas
 - **The Edgerunner (Day Trader):** Needs rapid price updates, high-volatility stocks, and quick execution to flip credits fast.
@@ -69,6 +68,15 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
     - [ ] Visual breakdown of portfolio allocation (Pie chart by Sector or Company).
     - [ ] Historical Portfolio Value chart.
 
+### 3.5 Authentication
+- [ ] **Sign In / Sign Up:**
+    - [ ] Support for GitHub OAuth.
+    - [ ] Support for Google OAuth.
+    - [ ] Stateless session management using JWT.
+- [ ] **User Profile:**
+    - [ ] Display user avatar and name from OAuth provider.
+    - [ ] Logout functionality.
+
 ## 4. Non-Functional Requirements
 
 ### 4.1 Performance
@@ -89,7 +97,8 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 - **Frontend:** React 19, Vite, TypeScript
 - **Routing:** TanStack Router
 - **Styling:** Tailwind CSS v4, shadcn/ui
-- **State Management:** React Context API + Custom Hooks
+- **State Management:** Zustand
+- **Authentication:** better-auth (Stateless Mode, GitHub & Google OAuth)
 - **Charts:** Recharts
 - **Utilities:** date-fns (Date formatting), lucide-react (Icons)
 
