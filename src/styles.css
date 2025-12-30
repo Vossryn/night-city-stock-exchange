@@ -75,6 +75,7 @@
 }
 
 @theme inline {
+    --color-neon-blue: #22d3ee;
     --font-sans: 'Inter Variable', sans-serif;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);

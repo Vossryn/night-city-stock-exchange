@@ -31,7 +31,7 @@ export const TerminalLayout = ({ children, className }: TerminalLayoutProps) => 
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 p-4 md:p-8 overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-900 scrollbar-track-black">
+        <div className="flex-1 p-4 pt-0 md:p-8 md:pt-0 overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-900 scrollbar-track-black">
           {children}
         </div>
 

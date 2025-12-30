@@ -18,7 +18,7 @@ export const Route = createFileRoute('/portfolio')({
 function Portfolio() {
   return (
     <div className="p-4 space-y-6">
-      <h1 className="text-3xl font-bold text-neon-blue">My Portfolio</h1>
+      <h1 className="text-3xl font-bold text-cyan-500">My Portfolio</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="p-4 border border-gray-700 rounded bg-card">

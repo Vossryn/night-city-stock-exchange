@@ -19,7 +19,7 @@ function CompanyDetail() {
       <div className="flex items-center gap-4">
         <img src={company.image} alt={company.name} className="w-20 h-20 object-contain" />
         <div>
-          <h1 className="text-4xl font-bold text-neon-pink">{company.name}</h1>
+          <h1 className="text-4xl font-bold text-cyan-500">{company.name}</h1>
           <p className="text-xl text-gray-400">{company.type.join(', ')}</p>
         </div>
       </div>
@@ -53,13 +53,13 @@ function CompanyDetail() {
             <div className="space-y-4">
               <div className="flex justify-between">
                 <span>Current Price</span>
-                <span className="font-mono text-neon-yellow">${company.current_share_value.toFixed(2)}</span>
+                <span className="font-mono text-white">${company.current_share_value.toFixed(2)}</span>
               </div>
               <div className="flex gap-2">
                 <button className="flex-1 bg-neon-blue text-black font-bold py-2 rounded hover:bg-blue-400">
                   BUY
                 </button>
-                <button className="flex-1 bg-neon-pink text-black font-bold py-2 rounded hover:bg-pink-400">
+                <button className="flex-1 bg-red-600 text-white font-bold py-2 rounded hover:bg-red-500">
                   SELL
                 </button>
               </div>
