@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { company_data } from "@/lib/company-data";
 
-// Select 10 random companies (mocking "most active" for now)
+// Select 10 random companies for the chart
 const topCompanies = [...company_data].sort(() => 0.5 - Math.random()).slice(0, 10)
 
 // Generate mock historical data
@@ -17,6 +17,9 @@ const generateMockData = (months: number) => {
   const now = new Date()
   const days = months * 30
   
+  // Track trend state for each company
+  const companyTrends: Record<string, { trend: number, duration: number, price: number }> = {}
+
   for (let i = days; i >= 0; i--) {
     const date = new Date(now)
     date.setDate(date.getDate() - i)
@@ -26,21 +29,41 @@ const generateMockData = (months: number) => {
     }
 
     topCompanies.forEach((company, index) => {
-      // Random walk price generation
-      // Base price around 100 + index * 10
-      // Volatility
-      const basePrice = 100 + index * 10
-      const volatility = 5
-      const randomChange = (Math.random() - 0.5) * volatility
-      // Add some trend based on index to make them distinct
-      const trend = Math.sin(i / 30) * 10
+      // Initialize trend state if not present
+      if (!companyTrends[company.name]) {
+        companyTrends[company.name] = {
+          trend: 0,
+          duration: 0,
+          price: 100 + index * 10 // Base price
+        }
+      }
+
+      const state = companyTrends[company.name]
+
+      // Update trend
+      if (state.duration <= 0) {
+        state.trend = (Math.random() * 0.08) - 0.04 // -4% to +4% daily trend
+        state.duration = Math.floor(Math.random() * 15) + 5 // 5-20 days
+      }
+      state.duration--
+
+      // Daily volatility
+      let noise = (Math.random() * 0.10) - 0.05 // -5% to +5% noise
       
-      point[company.name] = Math.max(0, basePrice + randomChange + trend + (Math.random() * i/10))
+      // Occasional shock
+      if (Math.random() < 0.02) {
+        noise += (Math.random() * 0.40) - 0.20 // +/- 20% shock
+      }
+
+      const change = state.trend + noise
+      state.price = state.price * (1 + change)
+      
+      point[company.name] = Math.max(1, state.price)
     })
 
     data.push(point)
   }
-  return data
+  return data.reverse() // Reverse to get chronological order
 }
 
 const chartConfig = topCompanies.reduce((acc, company, index) => {
@@ -50,11 +73,11 @@ const chartConfig = topCompanies.reduce((acc, company, index) => {
     "var(--chart-3)",
     "var(--chart-4)",
     "var(--chart-5)",
-    "var(--chart-1)", // Reuse or generate more distinct colors
-    "var(--chart-2)",
-    "var(--chart-3)",
-    "var(--chart-4)",
-    "var(--chart-5)",
+    "var(--chart-6)",
+    "var(--chart-7)",
+    "var(--chart-8)",
+    "var(--chart-9)",
+    "var(--chart-10)",
   ]
   
   acc[company.name] = {
@@ -76,9 +99,9 @@ export function ActiveStocksChart() {
     <Card className="col-span-1 md:col-span-3 border-cyan-800/50 bg-black/50">
       <CardHeader className="flex items-center gap-2 space-y-0 border-b border-cyan-800/50 py-5 sm:flex-row">
         <div className="grid flex-1 gap-1 text-center sm:text-left">
-          <CardTitle className="text-cyan-500">Most Active Stocks</CardTitle>
+          <CardTitle className="text-cyan-500">Market Trends</CardTitle>
           <CardDescription>
-            Showing top 10 active stocks for the last {timeRange}
+            Showing random selection of stocks for the last {timeRange}
           </CardDescription>
         </div>
         <div className="flex items-center gap-2">
