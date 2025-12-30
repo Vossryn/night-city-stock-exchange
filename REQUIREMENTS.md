@@ -24,12 +24,12 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 ## 3. Functional Requirements
 
 ### 3.1 Dashboard & Overview
-- [ ] **Market Status:** Display current market status (Open/Closed) and time.
-- [ ] **Market Movers:** Show top gainers, losers, and most active stocks by volume.
-- [ ] **Account Snapshot:**
-    - [ ] Total Net Worth (Cash + Current Value of Holdings).
-    - [ ] Available Buying Power (Cash Balance).
-    - [ ] Daily Profit/Loss (Value and Percentage).
+- [x] **Market Status:** Display current market status (Open/Closed) and time.
+- [x] **Market Movers:** Show top gainers, losers, and most active stocks by volume.
+- [x] **Account Snapshot:**
+    - [x] Total Net Worth (Cash + Current Value of Holdings).
+    - [x] Available Buying Power (Cash Balance).
+    - [x] Daily Profit/Loss (Value and Percentage).
 
 ### 3.2 Stock Market Mechanics
 - [ ] **Price Simulation:** Prices update in real-time based on simulated market activity or random walk algorithms.
@@ -46,7 +46,7 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 - [ ] **Transaction History:** Log every trade with: Date/Time, Symbol, Type (Buy/Sell), Quantity, Price per Share, Total Value.
 
 ### 3.3 Company Information
-- [ ] **Company Profile:** Display logo, description, sector (e.g., Arasaka, Militech), and CEO.
+- [x] **Company Profile:** Display logo, description, sector (e.g., Arasaka, Militech), and CEO.
 - [ ] **Stock Data:**
     - [ ] Current Price, Change ($), Change (%).
     - [ ] Key Stats: Market Cap, Volume, Day High/Low, 52-Week High/Low.
@@ -56,7 +56,7 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 - [ ] **News Feed:** [Optional] Generated news items affecting stock prices.
 
 ### 3.4 User Portfolio
-- [ ] **Holdings List:** Table displaying for each owned stock:
+- [x] **Holdings List:** Table displaying for each owned stock:
     - [ ] Symbol/Name.
     - [ ] Quantity Owned.
     - [ ] Average Cost Basis.
@@ -69,7 +69,7 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
     - [ ] Historical Portfolio Value chart.
 
 ### 3.5 Authentication
-- [ ] **Sign In / Sign Up:**
+- [x] **Sign In / Sign Up:**
     - [ ] Support for GitHub OAuth.
     - [ ] Support for Google OAuth.
     - [ ] Stateless session management using JWT.
@@ -85,8 +85,9 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 - [ ] UI updates must be smooth (60fps) during price changes.
 
 ### 4.2 UI/UX
-- [ ] **Theme:** Cyberpunk/Dark mode aesthetic (Neon Blue/Pink/Yellow, High Contrast Black backgrounds).
-- [ ] **Responsiveness:** Fully responsive layout (Mobile-first approach).
+- [x] **Theme:** Cyberpunk/Dark mode aesthetic (Neon Blue/Pink/Yellow, High Contrast Black backgrounds).
+- [x] **Responsiveness:** Fully responsive layout (Mobile-first approach).
+- [x] **Terminal Layout:** Immersive CRT/Terminal interface for all pages.
 - [ ] **Accessibility:** High contrast text, keyboard navigation support.
 
 ### 4.3 Data Persistence

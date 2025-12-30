@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ShieldAlert, TrendingUp, Zap } from "lucide-react";
 
-import { TerminalLayout } from "@/components/terminal-layout";
 import { Button } from "@/components/ui/button";
 import { company_data } from "@/lib/company-data";
 
@@ -10,25 +9,25 @@ export const LandingPage = () => {
   const featuredCompanies = company_data.slice(0, 3);
 
   return (
-    <TerminalLayout>
-      <div className="flex flex-col gap-12 max-w-5xl mx-auto">
-        {/* Hero Section */}
-        <section className="flex flex-col items-center text-center gap-6 py-12 md:py-20 border-b border-cyan-900/30">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/30 border border-cyan-900/50 text-cyan-400 text-xs md:text-sm animate-pulse">
-            <span className="w-2 h-2 rounded-full bg-cyan-500"></span>
-            MARKET STATUS: VOLATILE
-          </div>
-          
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-linear-to-b from-cyan-500 to-cyan-900 drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-            NIGHT CITY <br /> STOCK EXCHANGE
-          </h1>
-          
-          <p className="text-lg md:text-xl text-cyan-400/80 max-w-2xl mx-auto leading-relaxed">
-            High Risk. High Reward. No Regrets. <br />
-            Trade the biggest corps in Night City. Make your fortune or die trying.
-          </p>
+    <div className="flex flex-col gap-12 max-w-5xl mx-auto">
+      {/* Hero Section */}
+      <section className="flex flex-col items-center text-center gap-6 py-12 md:py-20 border-b border-cyan-900/30">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/30 border border-cyan-900/50 text-cyan-400 text-xs md:text-sm animate-pulse">
+          <span className="w-2 h-2 rounded-full bg-cyan-500"></span>
+          MARKET STATUS: VOLATILE
+        </div>
+        
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-linear-to-b from-cyan-500 to-cyan-900 drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
+          NIGHT CITY <br /> STOCK EXCHANGE
+        </h1>
+        
+        <p className="text-lg md:text-xl text-cyan-400/80 max-w-2xl mx-auto leading-relaxed">
+          High Risk. High Reward. No Regrets. <br />
+          Trade the biggest corps in Night City. Make your fortune or die trying.
+        </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 mt-4">
+        <div className="flex flex-col sm:flex-row gap-4 mt-4">
+          <Link to="/login">
             <Button 
               size="lg" 
               className="bg-cyan-600 hover:bg-cyan-700 text-black font-bold border-2 border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-all hover:scale-105"
@@ -36,6 +35,8 @@ export const LandingPage = () => {
               <Zap className="mr-2 h-5 w-5" />
               CONNECT TO NET
             </Button>
+          </Link>
+          <Link to="/market">
             <Button 
               variant="outline" 
               size="lg"
@@ -43,11 +44,12 @@ export const LandingPage = () => {
             >
               VIEW MARKET DATA
             </Button>
-          </div>
-        </section>
+          </Link>
+        </div>
+      </section>
 
-        {/* Market Ticker (Simulated) */}
-        <section className="w-full overflow-hidden bg-cyan-950/10 border-y border-cyan-900/30 py-3">
+      {/* Market Ticker (Simulated) */}
+      <section className="w-full overflow-hidden bg-cyan-950/10 border-y border-cyan-900/30 py-3">
           <div className="flex animate-[marquee_60s_linear_infinite] whitespace-nowrap gap-8 hover:pause">
             {[...company_data, ...company_data].map((company, i) => (
               <div key={i} className="flex items-center gap-2 text-sm font-mono">
@@ -117,7 +119,6 @@ export const LandingPage = () => {
           </div>
         </section>
       </div>
-    </TerminalLayout>
   );
 };
 
