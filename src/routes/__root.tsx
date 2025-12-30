@@ -55,19 +55,19 @@ function RootComponent() {
           <div className="flex items-center space-x-4 text-sm font-medium font-mono">
             <Link
               to="/dashboard"
-              className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-gradient-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30"
+              className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-linear-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30"
             >
               DASHBOARD
             </Link>
             <Link
               to="/market"
-              className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-gradient-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30"
+              className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-linear-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30"
             >
               MARKET
             </Link>
             <Link
               to="/portfolio"
-              className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-gradient-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30"
+              className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-linear-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30"
             >
               PORTFOLIO
             </Link>
@@ -88,7 +88,7 @@ function RootComponent() {
             ) : (
               <Link
                 to="/login"
-                className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-gradient-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30 text-sm font-medium font-mono"
+                className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-linear-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30 text-sm font-medium font-mono"
               >
                 LOGIN
               </Link>
