@@ -138,7 +138,7 @@ function ChartTooltipContent({
     const itemConfig = getPayloadConfigFromPayload(config, item, key)
     const value =
       !labelKey && typeof label === "string"
-        ? config[label].label || label
+        ? config[label]?.label || label
         : itemConfig?.label
 
     if (labelFormatter) {
@@ -347,8 +347,8 @@ function getPayloadConfigFromPayload(
 }
 
 export {
-  ChartContainer, ChartLegend,
-  ChartLegendContent,
-  ChartStyle, ChartTooltip,
-  ChartTooltipContent
+    ChartContainer, ChartLegend,
+    ChartLegendContent,
+    ChartStyle, ChartTooltip,
+    ChartTooltipContent
 }

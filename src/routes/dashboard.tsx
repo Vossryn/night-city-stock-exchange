@@ -1,3 +1,4 @@
+import { ActiveStocksChart } from '@/components/active-stocks-chart'
 import { useAuthStore } from '@/lib/auth-store'
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
@@ -34,6 +35,7 @@ function Dashboard() {
           <p>No data yet</p>
         </div>
       </div>
+      <ActiveStocksChart />
     </div>
   )
 }
