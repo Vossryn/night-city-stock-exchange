@@ -17,7 +17,11 @@ function CompanyDetail() {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
-        <img src={company.image} alt={company.name} className="w-20 h-20 object-contain" />
+        <img
+          src={company.image}
+          alt={company.name}
+          className="w-20 h-20 object-contain"
+        />
         <div>
           <h1 className="text-4xl font-bold text-cyan-500">{company.name}</h1>
           <p className="text-xl text-gray-400">{company.type.join(', ')}</p>
@@ -32,13 +36,18 @@ function CompanyDetail() {
               Chart Placeholder
             </div>
           </div>
-          
+
           <div className="p-6 border border-gray-700 rounded bg-card">
             <h2 className="text-xl font-semibold mb-2">Affiliations</h2>
             <div className="flex flex-wrap gap-2">
               {company.known_affiliations.length > 0 ? (
-                company.known_affiliations.map((aff) => (
-                  <span key={aff} className="px-2 py-1 bg-gray-800 rounded text-sm">{aff}</span>
+                company.known_affiliations.map((aff: string) => (
+                  <span
+                    key={aff}
+                    className="px-2 py-1 bg-gray-800 rounded text-sm"
+                  >
+                    {aff}
+                  </span>
                 ))
               ) : (
                 <span className="text-gray-500">None known</span>
@@ -53,7 +62,9 @@ function CompanyDetail() {
             <div className="space-y-4">
               <div className="flex justify-between">
                 <span>Current Price</span>
-                <span className="font-mono text-white">${company.current_share_value.toFixed(2)}</span>
+                <span className="font-mono text-white">
+                  ${company.current_share_value.toFixed(2)}
+                </span>
               </div>
               <div className="flex gap-2">
                 <button className="flex-1 bg-neon-blue text-black font-bold py-2 rounded hover:bg-blue-400">

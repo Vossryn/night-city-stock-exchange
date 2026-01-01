@@ -19,10 +19,16 @@ function MarketIndex() {
             className="block p-4 border border-gray-700 hover:border-neon-blue transition-colors rounded bg-card"
           >
             <div className="flex items-center gap-3">
-              <img src={company.image} alt={company.name} className="w-12 h-12 object-contain" />
+              <img
+                src={company.image}
+                alt={company.name}
+                className="w-12 h-12 object-contain"
+              />
               <div>
                 <h3 className="font-bold">{company.name}</h3>
-                <p className="text-sm text-gray-400">{company.type.join(', ')}</p>
+                <p className="text-sm text-gray-400">
+                  {company.type.join(', ')}
+                </p>
               </div>
             </div>
           </Link>

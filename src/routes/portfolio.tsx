@@ -1,5 +1,5 @@
-import { useAuthStore } from '@/lib/auth-store'
 import { createFileRoute, redirect } from '@tanstack/react-router'
+import { useAuthStore } from '@/lib/auth-store'
 
 export const Route = createFileRoute('/portfolio')({
   beforeLoad: ({ location }) => {
@@ -19,7 +19,7 @@ function Portfolio() {
   return (
     <div className="p-4 space-y-6">
       <h1 className="text-3xl font-bold text-cyan-500">My Portfolio</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="p-4 border border-gray-700 rounded bg-card">
           <h2 className="text-xl font-semibold mb-2">Performance</h2>

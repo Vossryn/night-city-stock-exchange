@@ -1,74 +1,74 @@
-import allFoodsLogo from "@/assets/company_logos/All-Foods.png";
-import allWorldsInsuranceLogo from "@/assets/company_logos/All-Worlds-Insurance.png";
-import arasakaLogo from "@/assets/company_logos/Arasaka.png";
-import archerLogo from "@/assets/company_logos/Archer.png";
-import avanteLogo from "@/assets/company_logos/Avante.png";
-import biotechnicaLogo from "@/assets/company_logos/Biotechnica.png";
-import braindanceLogo from "@/assets/company_logos/Braindance.png";
-import brennanLogo from "@/assets/company_logos/Brennan.png";
-import budgetArmsLogo from "@/assets/company_logos/Budget-Arms.png";
-import chevillonLogo from "@/assets/company_logos/Chevillon.png";
-import constitutionalArmsLogo from "@/assets/company_logos/Constitutional-Arms.png";
-import corpBudLogo from "@/assets/company_logos/Cop-Bud.png";
-import dakaiLogo from "@/assets/company_logos/Dakai.png";
-import darraPolytechnicLogo from "@/assets/company_logos/Darra-Polytechnic.png";
-import dataIncLogo from "@/assets/company_logos/Data-Inc.png";
-import delamainTaxiLogo from "@/assets/company_logos/Delamain-Taxi.png";
-import dynalarLogo from "@/assets/company_logos/Dynalar.png";
-import fuyutsukiLogo from "@/assets/company_logos/Fuyutsuki.png";
-import hydroSubsidiumLogo from "@/assets/company_logos/Hydro-Subsidium.png";
-import jingujiLogo from "@/assets/company_logos/Junguji.png";
-import kangTaoLogo from "@/assets/company_logos/Kang-Tao.png";
-import kaukazLogo from "@/assets/company_logos/Kaukaz.png";
-import kendachiLogo from "@/assets/company_logos/Kendachi.png";
-import kiroshiLogo from "@/assets/company_logos/Kiroshi.png";
-import macrowareLogo from "@/assets/company_logos/Macroware.png";
-import mahirMotorsLogo from "@/assets/company_logos/Mahir.png";
-import makigaiLogo from "@/assets/company_logos/Makigai.png";
-import maxiWearLogo from "@/assets/company_logos/Maxiwear.png";
-import militechLogo from "@/assets/company_logos/Militech.png";
-import mizutaniLogo from "@/assets/company_logos/Mizutani.png";
-import mooreTechnologiesLogo from "@/assets/company_logos/Moore.png";
-import nokotaLogo from "@/assets/company_logos/Nokota.png";
-import orbitalAirLogo from "@/assets/company_logos/Orbital-Air.png";
-import petrochemLogo from "@/assets/company_logos/Petrochem.png";
-import planetranLogo from "@/assets/company_logos/Planetran.png";
-import rayfieldLogo from "@/assets/company_logos/Rayfield.png";
-import revereCourierServicesLogo from "@/assets/company_logos/RCS.png";
-import rostovicLogo from "@/assets/company_logos/Rostovic.png";
-import thortonLogo from "@/assets/company_logos/Thorton.png";
-import traumaTeamLogo from "@/assets/company_logos/Trauma-Team.png";
-import tsunamiLogo from "@/assets/company_logos/Tsunami.png";
-import villefortLogo from "@/assets/company_logos/Villefort.png";
-import yaibaLogo from "@/assets/company_logos/Yaiba.png";
-import zetatechLogo from "@/assets/company_logos/Zetatech.png";
+import allFoodsLogo from '@/assets/company_logos/All-Foods.png'
+import allWorldsInsuranceLogo from '@/assets/company_logos/All-Worlds-Insurance.png'
+import arasakaLogo from '@/assets/company_logos/Arasaka.png'
+import archerLogo from '@/assets/company_logos/Archer.png'
+import avanteLogo from '@/assets/company_logos/Avante.png'
+import biotechnicaLogo from '@/assets/company_logos/Biotechnica.png'
+import braindanceLogo from '@/assets/company_logos/Braindance.png'
+import brennanLogo from '@/assets/company_logos/Brennan.png'
+import budgetArmsLogo from '@/assets/company_logos/Budget-Arms.png'
+import chevillonLogo from '@/assets/company_logos/Chevillon.png'
+import constitutionalArmsLogo from '@/assets/company_logos/Constitutional-Arms.png'
+import corpBudLogo from '@/assets/company_logos/Cop-Bud.png'
+import dakaiLogo from '@/assets/company_logos/Dakai.png'
+import darraPolytechnicLogo from '@/assets/company_logos/Darra-Polytechnic.png'
+import dataIncLogo from '@/assets/company_logos/Data-Inc.png'
+import delamainTaxiLogo from '@/assets/company_logos/Delamain-Taxi.png'
+import dynalarLogo from '@/assets/company_logos/Dynalar.png'
+import fuyutsukiLogo from '@/assets/company_logos/Fuyutsuki.png'
+import hydroSubsidiumLogo from '@/assets/company_logos/Hydro-Subsidium.png'
+import jingujiLogo from '@/assets/company_logos/Junguji.png'
+import kangTaoLogo from '@/assets/company_logos/Kang-Tao.png'
+import kaukazLogo from '@/assets/company_logos/Kaukaz.png'
+import kendachiLogo from '@/assets/company_logos/Kendachi.png'
+import kiroshiLogo from '@/assets/company_logos/Kiroshi.png'
+import macrowareLogo from '@/assets/company_logos/Macroware.png'
+import mahirMotorsLogo from '@/assets/company_logos/Mahir.png'
+import makigaiLogo from '@/assets/company_logos/Makigai.png'
+import maxiWearLogo from '@/assets/company_logos/Maxiwear.png'
+import militechLogo from '@/assets/company_logos/Militech.png'
+import mizutaniLogo from '@/assets/company_logos/Mizutani.png'
+import mooreTechnologiesLogo from '@/assets/company_logos/Moore.png'
+import nokotaLogo from '@/assets/company_logos/Nokota.png'
+import orbitalAirLogo from '@/assets/company_logos/Orbital-Air.png'
+import petrochemLogo from '@/assets/company_logos/Petrochem.png'
+import planetranLogo from '@/assets/company_logos/Planetran.png'
+import rayfieldLogo from '@/assets/company_logos/Rayfield.png'
+import revereCourierServicesLogo from '@/assets/company_logos/RCS.png'
+import rostovicLogo from '@/assets/company_logos/Rostovic.png'
+import thortonLogo from '@/assets/company_logos/Thorton.png'
+import traumaTeamLogo from '@/assets/company_logos/Trauma-Team.png'
+import tsunamiLogo from '@/assets/company_logos/Tsunami.png'
+import villefortLogo from '@/assets/company_logos/Villefort.png'
+import yaibaLogo from '@/assets/company_logos/Yaiba.png'
+import zetatechLogo from '@/assets/company_logos/Zetatech.png'
 
 export interface ICompanyData {
-  name: string;
-  image: any;
-  type: Array<string>;
-  known_affiliations: Array<string>;
-  current_share_value: number;
+  name: string
+  image: any
+  type: Array<string>
+  known_affiliations: Array<string>
+  current_share_value: number
   meta_values: {
-    Open: number;
-    High: number;
-    Low: number;
-    Mkt_cap: number;
-    P_E_ratio: number;
-    Div_yield: number;
-    CDP_score: number;
-    wk_52_high: number;
-    wk_52_low: number;
-  };
-  trending: number;
+    Open: number
+    High: number
+    Low: number
+    Mkt_cap: number
+    P_E_ratio: number
+    Div_yield: number
+    CDP_score: number
+    wk_52_high: number
+    wk_52_low: number
+  }
+  trending: number
 }
 
 export const company_data: Array<ICompanyData> = [
   {
-    name: "All Foods",
+    name: 'All Foods',
     image: allFoodsLogo,
-    type: ["Agri-food corp industry"],
-    known_affiliations: ["Holt Coalition", "Biotechnica"],
+    type: ['Agri-food corp industry'],
+    known_affiliations: ['Holt Coalition', 'Biotechnica'],
     current_share_value: 0,
     meta_values: {
       Open: 0,
@@ -84,9 +84,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Allworld Insurance",
+    name: 'Allworld Insurance',
     image: allWorldsInsuranceLogo,
-    type: ["Insurance business"],
+    type: ['Insurance business'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -103,9 +103,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Arasaka",
+    name: 'Arasaka',
     image: arasakaLogo,
-    type: ["Corporate security", "Manufacturing", "Banking"],
+    type: ['Corporate security', 'Manufacturing', 'Banking'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -122,9 +122,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Archer",
+    name: 'Archer',
     image: archerLogo,
-    type: ["Vehicle manufacturer"],
+    type: ['Vehicle manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -141,9 +141,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Avante",
+    name: 'Avante',
     image: avanteLogo,
-    type: ["Weapons manufacturer", "Clothing brand", "Store chain"],
+    type: ['Weapons manufacturer', 'Clothing brand', 'Store chain'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -160,14 +160,14 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Biotechnica",
+    name: 'Biotechnica',
     image: biotechnicaLogo,
     type: [
-      "Genetic engineering",
-      "Microbiological research",
-      "Biochemical research",
+      'Genetic engineering',
+      'Microbiological research',
+      'Biochemical research',
     ],
-    known_affiliations: ["Petrochem", "Arasaka"],
+    known_affiliations: ['Petrochem', 'Arasaka'],
     current_share_value: 0,
     meta_values: {
       Open: 0,
@@ -183,9 +183,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Braindance Inc.",
+    name: 'Braindance Inc.',
     image: braindanceLogo,
-    type: ["Entertainment"],
+    type: ['Entertainment'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -202,9 +202,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Brennan",
+    name: 'Brennan',
     image: brennanLogo,
-    type: ["Vehicle manufacturer"],
+    type: ['Vehicle manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -221,9 +221,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Budget Arms",
+    name: 'Budget Arms',
     image: budgetArmsLogo,
-    type: ["Weapons Manufacturer"],
+    type: ['Weapons Manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -240,9 +240,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Chevillon",
+    name: 'Chevillon',
     image: chevillonLogo,
-    type: ["Vehicle manufacturer"],
+    type: ['Vehicle manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -259,9 +259,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Combat Cab",
-    image: "",
-    type: ["Taxi company"],
+    name: 'Combat Cab',
+    image: '',
+    type: ['Taxi company'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -278,9 +278,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Constitutional Arms",
+    name: 'Constitutional Arms',
     image: constitutionalArmsLogo,
-    type: ["Weapons Manufacturer"],
+    type: ['Weapons Manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -297,9 +297,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Corp-Bud",
+    name: 'Corp-Bud',
     image: corpBudLogo,
-    type: ["Construction company"],
+    type: ['Construction company'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -316,9 +316,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Dakai Soundsystems",
+    name: 'Dakai Soundsystems',
     image: dakaiLogo,
-    type: ["Vocal Cyberware", "Manufacturer"],
+    type: ['Vocal Cyberware', 'Manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -335,9 +335,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Darra Polytechnic",
+    name: 'Darra Polytechnic',
     image: darraPolytechnicLogo,
-    type: ["Weapons Manufacturer"],
+    type: ['Weapons Manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -354,9 +354,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Data Inc.",
+    name: 'Data Inc.',
     image: dataIncLogo,
-    type: ["Electronics manufacturer"],
+    type: ['Electronics manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -373,9 +373,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Delamain Corporation",
+    name: 'Delamain Corporation',
     image: delamainTaxiLogo,
-    type: ["Taxi company"],
+    type: ['Taxi company'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -392,9 +392,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Dynalar",
+    name: 'Dynalar',
     image: dynalarLogo,
-    type: ["Cybernetic Technology"],
+    type: ['Cybernetic Technology'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -411,9 +411,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Fuyutsuki Electronics",
+    name: 'Fuyutsuki Electronics',
     image: fuyutsukiLogo,
-    type: ["Electronics Manufacturer", "Electronics Store"],
+    type: ['Electronics Manufacturer', 'Electronics Store'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -430,9 +430,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Hydrosubsidium",
+    name: 'Hydrosubsidium',
     image: hydroSubsidiumLogo,
-    type: ["Underwater technologies"],
+    type: ['Underwater technologies'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -449,10 +449,10 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Jinguji",
+    name: 'Jinguji',
     image: jingujiLogo,
-    type: ["Clothing brand & store chain"],
-    known_affiliations: ["Arasaka"],
+    type: ['Clothing brand & store chain'],
+    known_affiliations: ['Arasaka'],
     current_share_value: 0,
     meta_values: {
       Open: 0,
@@ -468,10 +468,10 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Kang Tao",
+    name: 'Kang Tao',
     image: kangTaoLogo,
-    type: ["Corporate Weapons Manufacturer", "Weapons Manufacturer"],
-    known_affiliations: ["QianT"],
+    type: ['Corporate Weapons Manufacturer', 'Weapons Manufacturer'],
+    known_affiliations: ['QianT'],
     current_share_value: 0,
     meta_values: {
       Open: 0,
@@ -487,9 +487,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Kaukaz",
+    name: 'Kaukaz',
     image: kaukazLogo,
-    type: ["Vehicle Manufacturer"],
+    type: ['Vehicle Manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -506,9 +506,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Kendachi",
+    name: 'Kendachi',
     image: kendachiLogo,
-    type: ["Arms Manufacturer"],
+    type: ['Arms Manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -525,9 +525,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Kiroshi",
+    name: 'Kiroshi',
     image: kiroshiLogo,
-    type: ["Optics Manufacturing", "Cyberware Manufacturing"],
+    type: ['Optics Manufacturing', 'Cyberware Manufacturing'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -544,9 +544,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Macroware",
+    name: 'Macroware',
     image: macrowareLogo,
-    type: ["Video game developer"],
+    type: ['Video game developer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -563,9 +563,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Mahir Motors",
+    name: 'Mahir Motors',
     image: mahirMotorsLogo,
-    type: ["Vehicle manufacturer"],
+    type: ['Vehicle manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -582,9 +582,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Makigai",
+    name: 'Makigai',
     image: makigaiLogo,
-    type: ["Vehicle manufacturer"],
+    type: ['Vehicle manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -601,9 +601,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "MaxiWear",
+    name: 'MaxiWear',
     image: maxiWearLogo,
-    type: ["Leisurewear brand"],
+    type: ['Leisurewear brand'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -620,14 +620,14 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Militech",
+    name: 'Militech',
     image: militechLogo,
     type: [
-      "Arms manufacturing",
-      "Military vehicle production",
-      "Mercenary contracting",
+      'Arms manufacturing',
+      'Military vehicle production',
+      'Mercenary contracting',
     ],
-    known_affiliations: ["NUSA"],
+    known_affiliations: ['NUSA'],
     current_share_value: 0,
     meta_values: {
       Open: 0,
@@ -643,9 +643,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Mizutani",
+    name: 'Mizutani',
     image: mizutaniLogo,
-    type: ["Vehicle manufacturer"],
+    type: ['Vehicle manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -662,9 +662,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "MoorE Technologies",
+    name: 'MoorE Technologies',
     image: mooreTechnologiesLogo,
-    type: ["Cyberware Manufacturer"],
+    type: ['Cyberware Manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -681,9 +681,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Nokota",
+    name: 'Nokota',
     image: nokotaLogo,
-    type: ["Weapons manufacturer"],
+    type: ['Weapons manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -700,12 +700,12 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Orbital Air",
+    name: 'Orbital Air',
     image: orbitalAirLogo,
     type: [
-      "Cargo transport to Earth orbit",
-      "Passenger transport to Earth orbit",
-      "Maintenance of commercial orbital facilities",
+      'Cargo transport to Earth orbit',
+      'Passenger transport to Earth orbit',
+      'Maintenance of commercial orbital facilities',
     ],
     known_affiliations: [],
     current_share_value: 0,
@@ -723,10 +723,10 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Petrochem",
+    name: 'Petrochem',
     image: petrochemLogo,
-    type: ["Petrochemical products", "Agribusiness"],
-    known_affiliations: ["Biotechnica"],
+    type: ['Petrochemical products', 'Agribusiness'],
+    known_affiliations: ['Biotechnica'],
     current_share_value: 0,
     meta_values: {
       Open: 0,
@@ -742,9 +742,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Planetran",
+    name: 'Planetran',
     image: planetranLogo,
-    type: ["Railway transport"],
+    type: ['Railway transport'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -761,10 +761,10 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Quadra",
-    image: "",
-    type: ["Vehicle manufacturer"],
-    known_affiliations: ["Dayton"],
+    name: 'Quadra',
+    image: '',
+    type: ['Vehicle manufacturer'],
+    known_affiliations: ['Dayton'],
     current_share_value: 0,
     meta_values: {
       Open: 0,
@@ -780,9 +780,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Rayfield",
+    name: 'Rayfield',
     image: rayfieldLogo,
-    type: ["Vehicle manufacturer"],
+    type: ['Vehicle manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -799,9 +799,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Revere Courier Services",
+    name: 'Revere Courier Services',
     image: revereCourierServicesLogo,
-    type: ["Shipping business"],
+    type: ['Shipping business'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -818,9 +818,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Rostović",
+    name: 'Rostović',
     image: rostovicLogo,
-    type: ["Weapons Manufacturer"],
+    type: ['Weapons Manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -837,9 +837,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Thorton",
+    name: 'Thorton',
     image: thortonLogo,
-    type: ["Vehicle manufacturer"],
+    type: ['Vehicle manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -856,10 +856,10 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Trauma Team",
+    name: 'Trauma Team',
     image: traumaTeamLogo,
-    type: ["Ambulance Paramedica"],
-    known_affiliations: ["Delamain Corporation"],
+    type: ['Ambulance Paramedica'],
+    known_affiliations: ['Delamain Corporation'],
     current_share_value: 0,
     meta_values: {
       Open: 0,
@@ -875,9 +875,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Tsunami",
+    name: 'Tsunami',
     image: tsunamiLogo,
-    type: ["Weapons Manufacturer"],
+    type: ['Weapons Manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -894,9 +894,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Villefort",
+    name: 'Villefort',
     image: villefortLogo,
-    type: ["Vehicle manufacturer"],
+    type: ['Vehicle manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -913,9 +913,9 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Yaiba",
+    name: 'Yaiba',
     image: yaibaLogo,
-    type: ["Vehicle manufacturer"],
+    type: ['Vehicle manufacturer'],
     known_affiliations: [],
     current_share_value: 0,
     meta_values: {
@@ -932,15 +932,15 @@ export const company_data: Array<ICompanyData> = [
     trending: 0,
   },
   {
-    name: "Zetatech",
+    name: 'Zetatech',
     image: zetatechLogo,
     type: [
-      "Wetware",
-      "computer hardware",
-      "software design",
-      "heavy machinery",
-      "transportation",
-      "shipping",
+      'Wetware',
+      'computer hardware',
+      'software design',
+      'heavy machinery',
+      'transportation',
+      'shipping',
     ],
     known_affiliations: [],
     current_share_value: 0,
@@ -957,4 +957,4 @@ export const company_data: Array<ICompanyData> = [
     },
     trending: 0,
   },
-];
+]

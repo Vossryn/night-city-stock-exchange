@@ -1,19 +1,23 @@
 import { TanStackDevtools } from '@tanstack/react-devtools'
+import { QueryClientProvider } from '@tanstack/react-query'
 import {
   HeadContent,
   Link,
   Outlet,
   Scripts,
-  createRootRoute,
+  createRootRouteWithContext,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
 import appCss from '../styles.css?url'
+import type { QueryClient } from '@tanstack/react-query'
 
 import { TerminalLayout } from '@/components/terminal-layout'
 import { useAuthStore } from '@/lib/auth-store'
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient
+}>()({
   head: () => ({
     meta: [
       {
@@ -38,68 +42,70 @@ export const Route = createRootRoute({
   shellComponent: RootDocument,
 })
 
-
 function RootComponent() {
   const { isAuthenticated, logout, user } = useAuthStore()
+  const { queryClient } = Route.useRouteContext()
 
   return (
-    <TerminalLayout>
-      <nav className="border-b border-cyan-800/50 bg-black/50 backdrop-blur -mx-4 md:-mx-8 px-4 md:px-8 py-2">
-        <div className="flex h-10 items-center">
-          <Link
-            to="/"
-            className="mr-6 flex items-center space-x-2 font-bold text-cyan-500 text-lg tracking-tighter hover:text-neon-blue transition-colors"
-          >
-            NCSE
-          </Link>
-          <div className="flex items-center space-x-4 text-sm font-medium font-mono">
+    <QueryClientProvider client={queryClient}>
+      <TerminalLayout>
+        <nav className="border-b border-cyan-800/50 bg-black/50 backdrop-blur -mx-4 md:-mx-8 px-4 md:px-8 py-2">
+          <div className="flex h-10 items-center">
             <Link
-              to="/dashboard"
-              className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-linear-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30"
+              to="/"
+              className="mr-6 flex items-center space-x-2 font-bold text-cyan-500 text-lg tracking-tighter hover:text-neon-blue transition-colors"
             >
-              DASHBOARD
+              NCSE
             </Link>
-            <Link
-              to="/market"
-              className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-linear-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30"
-            >
-              MARKET
-            </Link>
-            <Link
-              to="/portfolio"
-              className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-linear-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30"
-            >
-              PORTFOLIO
-            </Link>
-          </div>
-          <div className="ml-auto flex items-center space-x-4">
-            {isAuthenticated ? (
-              <div className="flex items-center gap-4">
-                <span className="text-xs text-cyan-600 hidden md:inline-block">
-                  ID: {user?.name.toUpperCase()}
-                </span>
-                <button
-                  onClick={() => logout()}
-                  className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] cursor-pointer text-sm font-medium font-mono"
-                >
-                  LOGOUT
-                </button>
-              </div>
-            ) : (
+            <div className="flex items-center space-x-4 text-sm font-medium font-mono">
               <Link
-                to="/login"
-                className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-linear-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30 text-sm font-medium font-mono"
+                to="/dashboard"
+                className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-linear-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30"
               >
-                LOGIN
+                DASHBOARD
               </Link>
-            )}
+              <Link
+                to="/market"
+                className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-linear-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30"
+              >
+                MARKET
+              </Link>
+              <Link
+                to="/portfolio"
+                className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-linear-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30"
+              >
+                PORTFOLIO
+              </Link>
+            </div>
+            <div className="ml-auto flex items-center space-x-4">
+              {isAuthenticated ? (
+                <div className="flex items-center gap-4">
+                  <span className="text-xs text-cyan-600 hidden md:inline-block">
+                    ID: {user?.name.toUpperCase()}
+                  </span>
+                  <button
+                    onClick={() => logout()}
+                    className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] cursor-pointer text-sm font-medium font-mono"
+                  >
+                    LOGOUT
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  to="/login"
+                  className="flex items-center px-3 py-1 border-2 border-cyan-800/50 bg-black/50 text-cyan-500/70 transition-all hover:text-neon-blue hover:border-neon-blue/50 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] [&.active]:text-neon-blue [&.active]:border-neon-blue [&.active]:shadow-[0_0_20px_rgba(6,182,212,0.3)] [&.active]:bg-linear-to-b [&.active]:from-transparent [&.active]:to-neon-blue/30 text-sm font-medium font-mono"
+                >
+                  LOGIN
+                </Link>
+              )}
+            </div>
           </div>
-        </div>
-      </nav>
-      <main className="flex-1">
-        <Outlet />
-      </main>
-    </TerminalLayout>
+        </nav>
+        <main className="flex-1">
+          <Outlet />
+        </main>
+      </TerminalLayout>
+    </QueryClientProvider>
   )
 }
 

@@ -12,14 +12,21 @@ const clientEnvSchema = z.object({
 
 // Server-side environment variables
 const serverEnvSchema = z.object({
-  VITE_GOOGLE_CLIENT_SECRET: z.string().min(1, 'VITE_GOOGLE_CLIENT_SECRET is required'),
-  VITE_GITHUB_CLIENT_SECRET: z.string().min(1, 'VITE_GITHUB_CLIENT_SECRET is required'),
+  VITE_GOOGLE_CLIENT_SECRET: z
+    .string()
+    .min(1, 'VITE_GOOGLE_CLIENT_SECRET is required'),
+  VITE_GITHUB_CLIENT_SECRET: z
+    .string()
+    .min(1, 'VITE_GITHUB_CLIENT_SECRET is required'),
 })
 
 const _clientEnv = clientEnvSchema.safeParse(import.meta.env)
 
 if (!_clientEnv.success) {
-  console.error('❌ Invalid client environment variables:', _clientEnv.error.format())
+  console.error(
+    '❌ Invalid client environment variables:',
+    _clientEnv.error.format(),
+  )
   throw new Error('Invalid client environment variables')
 }
 
@@ -45,7 +52,10 @@ export const serverConfig: ServerConfig = (() => {
   const _serverEnv = serverEnvSchema.safeParse(import.meta.env)
 
   if (!_serverEnv.success) {
-    console.error('❌ Invalid server environment variables:', _serverEnv.error.format())
+    console.error(
+      '❌ Invalid server environment variables:',
+      _serverEnv.error.format(),
+    )
     throw new Error('Invalid server environment variables')
   }
 

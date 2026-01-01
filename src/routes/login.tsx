@@ -1,6 +1,6 @@
+import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { useAuthStore } from '@/lib/auth-store'
-import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/login')({
   beforeLoad: () => {
@@ -29,17 +29,17 @@ function Login() {
         <h1 className="text-3xl font-bold text-center mb-8 text-neon-blue tracking-wider">
           NCSE ACCESS
         </h1>
-        
+
         <div className="space-y-4">
-          <Button 
-            className="w-full bg-white text-black hover:bg-gray-200" 
+          <Button
+            className="w-full bg-white text-black hover:bg-gray-200"
             variant="outline"
             onClick={() => handleLogin('GitHub')}
           >
             Continue with GitHub
           </Button>
-          <Button 
-            className="w-full bg-red-600 text-white hover:bg-red-700" 
+          <Button
+            className="w-full bg-red-600 text-white hover:bg-red-700"
             variant="outline"
             onClick={() => handleLogin('Google')}
           >
