@@ -165,7 +165,7 @@ export function ActiveStocksChart() {
                 key={company.name}
                 dataKey={company.name}
                 type="monotone"
-                stroke={`var(--color-${company.name})`}
+                stroke={`var(--color-${company.name.replace(/[^a-zA-Z0-9-]/g, '_')})`}
                 strokeWidth={2}
                 dot={false}
               />

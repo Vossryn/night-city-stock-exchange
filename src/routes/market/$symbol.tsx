@@ -1,27 +1,59 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
 
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/components/ui/chart'
+import { getMarketHistory } from '@/hooks/useGetActiveStocks'
+import { getCompany } from '@/hooks/useGetCompany'
 import { company_data } from '@/lib/company-data'
 
 export const Route = createFileRoute('/market/$symbol')({
   component: CompanyDetail,
-  loader: ({ params }) => {
-    const company = company_data.find((c) => c.name === params.symbol)
-    if (!company) throw new Error('Company not found')
-    return { company }
+  loader: async ({ params }) => {
+    const dbCompany = await getCompany({ data: params.symbol })
+    if (!dbCompany) throw new Error('Company not found')
+
+    const history = await getMarketHistory({
+      data: { days: 30, companyIds: [dbCompany.id] },
+    })
+
+    const staticCompany = company_data.find((c) => c.name === params.symbol)
+
+    return {
+      company: {
+        ...dbCompany,
+        image: staticCompany?.image,
+        known_affiliations: staticCompany?.known_affiliations || [],
+        type: staticCompany?.type || [dbCompany.sector],
+      },
+      history,
+    }
   },
 })
 
 function CompanyDetail() {
-  const { company } = Route.useLoaderData()
+  const { company, history } = Route.useLoaderData()
+
+  const chartConfig = {
+    [company.name]: {
+      label: 'Price',
+      color: 'hsl(var(--primary))',
+    },
+  }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
-        <img
-          src={company.image}
-          alt={company.name}
-          className="w-20 h-20 object-contain"
-        />
+        {company.image && (
+          <img
+            src={company.image}
+            alt={company.name}
+            className="w-20 h-20 object-contain"
+          />
+        )}
         <div>
           <h1 className="text-4xl font-bold text-cyan-500">{company.name}</h1>
           <p className="text-xl text-gray-400">{company.type.join(', ')}</p>
@@ -31,9 +63,40 @@ function CompanyDetail() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-4">
           <div className="p-6 border border-gray-700 rounded bg-card">
-            <h2 className="text-xl font-semibold mb-4">Price Chart</h2>
-            <div className="h-64 flex items-center justify-center bg-black/30 text-gray-500">
-              Chart Placeholder
+            <h2 className="text-xl font-semibold mb-4">Price Chart (30 Days)</h2>
+            <div className="h-64 w-full">
+              <ChartContainer config={chartConfig} className="h-full w-full">
+                <LineChart data={history}>
+                  <CartesianGrid vertical={false} stroke="rgba(255,255,255,0.1)" />
+                  <XAxis
+                    dataKey="date"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    minTickGap={32}
+                    tickFormatter={(value) => {
+                      const date = new Date(value)
+                      return date.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                      })
+                    }}
+                  />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Line
+                    dataKey={company.name}
+                    type="monotone"
+                    stroke="var(--color-price)"
+                    strokeWidth={2}
+                    dot={false}
+                    style={
+                      {
+                        '--color-price': 'var(--color-primary)',
+                      } as React.CSSProperties
+                    }
+                  />
+                </LineChart>
+              </ChartContainer>
             </div>
           </div>
 
@@ -63,7 +126,7 @@ function CompanyDetail() {
               <div className="flex justify-between">
                 <span>Current Price</span>
                 <span className="font-mono text-white">
-                  ${company.current_share_value.toFixed(2)}
+                  ${company.price?.toFixed(2) ?? 'N/A'}
                 </span>
               </div>
               <div className="flex gap-2">

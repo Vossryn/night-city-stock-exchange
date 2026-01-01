@@ -1,7 +1,28 @@
-import { subDays } from 'date-fns'
-import { and, eq, gte, inArray, sql } from 'drizzle-orm'
 import { db } from '@/db'
 import { companies, stockPrices } from '@/db/schema'
+import { subDays } from 'date-fns'
+import { and, desc, eq, gte, inArray, sql } from 'drizzle-orm'
+
+export async function getCompanyByName(name: string) {
+  const result = await db
+    .select({
+      id: companies.id,
+      name: companies.name,
+      ticker: companies.ticker,
+      sector: companies.sector,
+      description: companies.description,
+      logoUrl: companies.logoUrl,
+      price: stockPrices.price,
+      timestamp: stockPrices.timestamp,
+    })
+    .from(companies)
+    .leftJoin(stockPrices, eq(companies.id, stockPrices.companyId))
+    .where(eq(companies.name, name))
+    .orderBy(desc(stockPrices.timestamp))
+    .limit(1)
+
+  return result[0]
+}
 
 export async function getActiveStocksFromDb() {
   const result = await db

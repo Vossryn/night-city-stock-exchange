@@ -1,6 +1,7 @@
-import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { useAuthStore } from '@/lib/auth-store'
+import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router'
+import { useEffect } from 'react'
 
 export const Route = createFileRoute('/login')({
   beforeLoad: () => {
@@ -16,6 +17,13 @@ export const Route = createFileRoute('/login')({
 function Login() {
   const navigate = useNavigate()
   const login = useAuthStore((state) => state.login)
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate({ to: '/dashboard' })
+    }
+  }, [isAuthenticated, navigate])
 
   const handleLogin = (provider: string) => {
     // Simulate login
