@@ -1,11 +1,22 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { CompanyDetail } from '@/features/company-detail'
 import { getMarketHistory } from '@/hooks/useGetActiveStocks'
 import { getCompany } from '@/hooks/useGetCompany'
 import { company_data } from '@/lib/company-data'
+import { useAuthStore } from '@/lib/auth-store'
 
 export const Route = createFileRoute('/market/$symbol')({
+  beforeLoad: ({ location }) => {
+    if (!useAuthStore.getState().isAuthenticated) {
+      throw redirect({
+        to: '/login',
+        search: {
+          redirect: location.href,
+        },
+      })
+    }
+  },
   component: CompanyDetailRoute,
   loader: async ({ params }) => {
     const dbCompany = await getCompany({ data: params.symbol })
