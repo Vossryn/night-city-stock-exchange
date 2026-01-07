@@ -20,3 +20,13 @@ cp .env.example .env
 - `VITE_ENABLE_DEBUG_TOOLS`: Enable debug tools for development (default: false).
 
 You can access these variables in the code using `src/lib/config.ts`.
+
+## Authentication
+
+This project uses **better-auth** for server-side authentication with OAuth providers (GitHub and Google).
+
+See [AUTH_SETUP.md](./AUTH_SETUP.md) for detailed setup instructions including:
+- OAuth provider configuration
+- Database migration
+- Environment variable setup
+- Usage examples
