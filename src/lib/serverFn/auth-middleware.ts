@@ -1,7 +1,18 @@
 import { redirect } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
+import { getRequest } from '@tanstack/react-start/server'
 
 import { auth } from '@/lib/auth.server'
+
+interface AuthUser {
+  id: string
+  createdAt: Date
+  updatedAt: Date
+  email: string
+  emailVerified: boolean
+  name: string
+  image?: string | null
+}
 
 /**
  * Authentication check for server functions.
@@ -10,15 +21,16 @@ import { auth } from '@/lib/auth.server'
  * Usage: const user = await requireAuth() at the start of protected server functions
  */
 export const requireAuth = createServerFn({ method: 'GET' }).handler(
-  async (_, ctx) => {
+  async (): Promise<AuthUser> => {
+    const request = getRequest()
     const session = await auth.api.getSession({
-      headers: ctx.request.headers,
+      headers: request.headers,
     })
 
     if (!session?.user) {
       throw redirect({
         to: '/login',
-        search: { redirect: ctx.request.url },
+        search: { redirect: request.url },
       })
     }
 
@@ -31,9 +43,10 @@ export const requireAuth = createServerFn({ method: 'GET' }).handler(
  * Returns null if not authenticated (does not redirect).
  */
 export const getCurrentUser = createServerFn({ method: 'GET' }).handler(
-  async (_, ctx) => {
+  async (): Promise<AuthUser | null> => {
+    const request = getRequest()
     const session = await auth.api.getSession({
-      headers: ctx.request.headers,
+      headers: request.headers,
     })
 
     return session?.user || null
