@@ -35,14 +35,21 @@ Feature components (`src/features/`) contain ALL UI logic, hooks, and presentati
 
 ### Server Functions (TanStack Start Pattern)
 
-Use `createServerFn()` in hooks/utilities to create type-safe server endpoints:
+All server functions are centralized in `src/lib/serverFn/` for easy tracking:
 
 ```tsx
-// In src/hooks/useGetActiveStocks.ts
+// Server function definition in src/lib/serverFn/getActiveStocks.ts
+import { createServerFn } from '@tanstack/react-start'
+
 export const getActiveStocks = createServerFn({ method: 'GET' }).handler(async () => {
   const { getActiveStocksFromDb } = await import('@/lib/db-queries.server')
   return getActiveStocksFromDb()
 })
+```
+
+```tsx
+// Usage in hooks (src/hooks/useGetActiveStocks.ts)
+import { getActiveStocks } from '@/lib/serverFn'
 
 export function useGetActiveStocks() {
   return useQuery({
