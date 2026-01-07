@@ -4,6 +4,9 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from '@/db'
 import { serverConfig } from '@/lib/config'
 
+// Cookie name constant - extract this if better-auth changes defaults
+const SESSION_COOKIE_NAME = 'better-auth.session_token'
+
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: 'sqlite',
@@ -31,26 +34,9 @@ export const auth = betterAuth({
  */
 export async function getSessionFromHeaders(headers: Headers) {
   try {
-    const cookieHeader = headers.get('cookie')
-    if (!cookieHeader) {
-      return null
-    }
-
-    // better-auth uses a cookie named 'better-auth.session_token' by default
-    const sessionToken = cookieHeader
-      .split(';')
-      .find((c) => c.trim().startsWith('better-auth.session_token='))
-      ?.split('=')[1]
-
-    if (!sessionToken) {
-      return null
-    }
-
-    // Validate session with better-auth
+    // Pass all headers to better-auth for proper session extraction
     const session = await auth.api.getSession({
-      headers: new Headers({
-        cookie: `better-auth.session_token=${sessionToken}`,
-      }),
+      headers,
     })
 
     return session
