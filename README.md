@@ -26,6 +26,7 @@ You can access these variables in the code using `src/lib/config.ts`.
 This project uses **better-auth** for server-side authentication with OAuth providers (GitHub and Google).
 
 See [AUTH_SETUP.md](./AUTH_SETUP.md) for detailed setup instructions including:
+
 - OAuth provider configuration
 - Database migration
 - Environment variable setup

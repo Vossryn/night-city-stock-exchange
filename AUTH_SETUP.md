@@ -9,30 +9,40 @@ The application now uses **better-auth** for server-side session management with
 ## What Changed
 
 ### 1. Database Schema
+
 Added authentication tables to `src/db/schema.ts`:
+
 - `user` - Stores user information from OAuth providers
 - `session` - Stores active user sessions
 - `account` - Stores OAuth provider account data
 - `verification` - Stores verification tokens
 
 ### 2. Configuration
+
 Updated `src/lib/config.ts` to include:
+
 - `BETTER_AUTH_SECRET` - Secret key for session encryption (min 32 characters)
 - `BETTER_AUTH_URL` - Base URL for the application (default: http://localhost:3000)
 
 ### 3. Auth Server Module
+
 Created `src/lib/auth.server.ts`:
+
 - Configures better-auth with GitHub and Google OAuth providers
 - Exports `getSessionFromHeaders()` helper for session validation
 - Uses Drizzle adapter for SQLite database
 
 ### 4. Server Functions
+
 Updated `src/lib/serverFn/auth-middleware.ts`:
+
 - `requireAuth()` - Validates session and returns authenticated user or redirects to login
 - `getCurrentUser()` - Returns authenticated user or null
 
 ### 5. Database Queries
+
 Added to `src/lib/db-queries.server.ts`:
+
 - `getUserById(userId)` - Get user by ID
 - `getUserByEmail(email)` - Get user by email
 
@@ -65,12 +75,14 @@ npx tsx src/db/migrate.ts
 ### 3. OAuth Provider Setup
 
 #### GitHub OAuth
+
 1. Go to GitHub Settings > Developer settings > OAuth Apps
 2. Create a new OAuth App
 3. Set Authorization callback URL to: `http://localhost:3000/api/auth/callback/github`
 4. Copy Client ID and Client Secret to `.env`
 
 #### Google OAuth
+
 1. Go to Google Cloud Console
 2. Create a new project or select existing
 3. Enable Google+ API
@@ -92,10 +104,10 @@ export const getProtectedData = createServerFn({ method: 'GET' }).handler(
   async (ctx) => {
     // This will redirect to /login if not authenticated
     const user = await requireAuth()
-    
+
     // User is authenticated, proceed with logic
     return { data: 'protected', userId: user.id }
-  }
+  },
 )
 ```
 
@@ -109,12 +121,12 @@ export const getPublicData = createServerFn({ method: 'GET' }).handler(
   async (ctx) => {
     // Returns user or null
     const user = await getCurrentUser()
-    
+
     return {
       data: 'public',
-      personalizedFor: user?.name || 'Guest'
+      personalizedFor: user?.name || 'Guest',
     }
-  }
+  },
 )
 ```
 

@@ -21,7 +21,23 @@ const serverEnvSchema = z.object({
   BETTER_AUTH_SECRET: z
     .string()
     .min(32, 'BETTER_AUTH_SECRET must be at least 32 characters'),
-  BETTER_AUTH_URL: z.string().url().optional().default('http://localhost:3000'),
+  BETTER_AUTH_URL: z
+    .string()
+    .url()
+    .optional()
+    .default('http://localhost:3000')
+    .refine(
+      (url) => {
+        // In production, require HTTPS
+        if (process.env.NODE_ENV === 'production') {
+          return url.startsWith('https://')
+        }
+        return true
+      },
+      {
+        message: 'BETTER_AUTH_URL must use HTTPS in production',
+      },
+    ),
 })
 
 const _clientEnv = clientEnvSchema.safeParse(import.meta.env)

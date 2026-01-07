@@ -1,6 +1,9 @@
 import Database from 'better-sqlite3'
 
-const sqlite = new Database('sqlite.db')
+// Use the same database path as the main app
+const DB_PATH = 'sqlite.db'
+
+const sqlite = new Database(DB_PATH)
 
 console.log('🔄 Running database migrations...')
 

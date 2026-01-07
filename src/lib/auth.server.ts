@@ -4,9 +4,6 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from '@/db'
 import { serverConfig } from '@/lib/config'
 
-// Cookie name constant - extract this if better-auth changes defaults
-const SESSION_COOKIE_NAME = 'better-auth.session_token'
-
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: 'sqlite',
