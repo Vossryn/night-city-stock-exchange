@@ -1,10 +1,10 @@
-import { useMemo } from 'react'
-import { cva } from 'class-variance-authority'
 import type { VariantProps } from 'class-variance-authority'
+import { cva } from 'class-variance-authority'
+import { useMemo } from 'react'
 
-import { cn } from '@/lib/utils'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
+import { cn } from '@/lib/utils'
 
 function FieldSet({ className, ...props }: React.ComponentProps<'fieldset'>) {
   return (
@@ -193,7 +193,7 @@ function FieldError({
       ...new Map(errors.map((error) => [error?.message, error])).values(),
     ]
 
-    if (uniqueErrors?.length == 1) {
+    if (uniqueErrors.length == 1) {
       return uniqueErrors[0]?.message
     }
 
@@ -224,14 +224,9 @@ function FieldError({
 }
 
 export {
-  Field,
-  FieldLabel,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLegend,
-  FieldSeparator,
-  FieldSet,
-  FieldContent,
-  FieldTitle,
+    Field, FieldContent, FieldDescription,
+    FieldError,
+    FieldGroup, FieldLabel, FieldLegend,
+    FieldSeparator,
+    FieldSet, FieldTitle
 }

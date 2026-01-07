@@ -1,9 +1,10 @@
 import { Link } from '@tanstack/react-router'
 
-import { useAuthStore } from '@/lib/auth-store'
+import { useCurrentUser, useLogout } from '@/hooks/useCurrentUser'
 
 export function AppNavigation() {
-  const { isAuthenticated, logout, user } = useAuthStore()
+  const { isAuthenticated, user } = useCurrentUser()
+  const logout = useLogout()
 
   return (
     <nav className="border-b border-cyan-800/50 bg-black/50 backdrop-blur -mx-4 md:-mx-8 px-4 md:px-8 py-2">

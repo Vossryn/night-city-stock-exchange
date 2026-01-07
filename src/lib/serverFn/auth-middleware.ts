@@ -1,40 +1,41 @@
+import { redirect } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
+
+import { auth } from '@/lib/auth.server'
 
 /**
  * Authentication check for server functions.
- * Returns the authenticated user or throws an error/redirect.
- * TODO: Replace with proper server-side session/cookie validation.
- * 
- * Usage: await requireAuth() at the start of protected server functions
+ * Returns the authenticated user or throws a redirect to login.
+ *
+ * Usage: const user = await requireAuth() at the start of protected server functions
  */
 export const requireAuth = createServerFn({ method: 'GET' }).handler(
-  async () => {
-    // TODO: Implement proper server-side session validation
-    // const session = await getSession()
-    // if (!session?.userId) {
-    //   throw redirect({ to: '/login' })
-    // }
-    // const user = await getUserById(session.userId)
-    // return user
-    
-    // Placeholder: Always passes for now
-    // In production, implement real session validation above
-    return { authenticated: true }
+  async (_, ctx) => {
+    const session = await auth.api.getSession({
+      headers: ctx.request.headers,
+    })
+
+    if (!session?.user) {
+      throw redirect({
+        to: '/login',
+        search: { redirect: ctx.request.url },
+      })
+    }
+
+    return session.user
   },
 )
 
 /**
  * Gets the current authenticated user.
- * Returns null if not authenticated.
- * TODO: Replace with proper server-side user extraction from session.
+ * Returns null if not authenticated (does not redirect).
  */
 export const getCurrentUser = createServerFn({ method: 'GET' }).handler(
-  async () => {
-    // TODO: Extract user from session/cookie
-    // const session = await getSession()
-    // if (!session?.userId) return null
-    // return await getUserById(session.userId)
-    
-    return null
+  async (_, ctx) => {
+    const session = await auth.api.getSession({
+      headers: ctx.request.headers,
+    })
+
+    return session?.user || null
   },
 )

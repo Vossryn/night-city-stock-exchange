@@ -1,6 +1,6 @@
-import { createServerFn } from '@tanstack/react-start';
+import { createServerFn } from '@tanstack/react-start'
 
-import { requireAuth } from './auth-middleware';
+import { requireAuth } from './auth-middleware'
 
 /**
  * Server function to fetch historical stock prices.

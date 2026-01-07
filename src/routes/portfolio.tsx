@@ -1,11 +1,13 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { Portfolio } from '@/features/portfolio'
-import { useAuthStore } from '@/lib/auth-store'
+import { getSession } from '@/lib/serverFn'
 
 export const Route = createFileRoute('/portfolio')({
-  beforeLoad: ({ location }) => {
-    if (!useAuthStore.getState().isAuthenticated) {
+  beforeLoad: async ({ location }) => {
+    const session = await getSession()
+
+    if (!session) {
       throw redirect({
         to: '/login',
         search: {

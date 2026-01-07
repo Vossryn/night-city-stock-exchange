@@ -1,11 +1,13 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { Dashboard } from '@/features/dashboard'
-import { useAuthStore } from '@/lib/auth-store'
+import { getSession } from '@/lib/serverFn'
 
 export const Route = createFileRoute('/dashboard')({
-  beforeLoad: ({ location }) => {
-    if (!useAuthStore.getState().isAuthenticated) {
+  beforeLoad: async ({ location }) => {
+    const session = await getSession()
+
+    if (!session) {
       throw redirect({
         to: '/login',
         search: {

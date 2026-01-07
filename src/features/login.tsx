@@ -2,23 +2,24 @@ import { useNavigate } from '@tanstack/react-router'
 import { useEffect } from 'react'
 
 import { Button } from '@/components/ui/button'
-import { useAuthStore } from '@/lib/auth-store'
+import { clientConfig } from '@/lib/config'
 
 export function Login() {
   const navigate = useNavigate()
-  const login = useAuthStore((state) => state.login)
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
 
   useEffect(() => {
-    if (isAuthenticated) {
+    // Check if we're returning from OAuth callback
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('success') === 'true') {
       navigate({ to: '/dashboard' })
     }
-  }, [isAuthenticated, navigate])
+  }, [navigate])
 
-  const handleLogin = (provider: string) => {
-    // Simulate login
-    login({ name: 'Edgerunner', email: `user@${provider.toLowerCase()}.com` })
-    navigate({ to: '/dashboard' })
+  const handleLogin = (provider: 'github' | 'google') => {
+    // Better Auth OAuth flow: Redirect to the provider's OAuth endpoint
+    const callbackUrl = `${window.location.origin}/api/auth/callback/${provider}`
+    const authUrl = `/api/auth/signin/${provider}?callbackUrl=${encodeURIComponent(callbackUrl)}`
+    window.location.href = authUrl
   }
 
   return (
@@ -32,14 +33,16 @@ export function Login() {
           <Button
             className="w-full bg-white text-black hover:bg-gray-200"
             variant="outline"
-            onClick={() => handleLogin('GitHub')}
+            onClick={() => handleLogin('github')}
+            disabled={!clientConfig.githubClientId}
           >
             Continue with GitHub
           </Button>
           <Button
             className="w-full bg-red-600 text-white hover:bg-red-700"
             variant="outline"
-            onClick={() => handleLogin('Google')}
+            onClick={() => handleLogin('google')}
+            disabled={!clientConfig.googleClientId}
           >
             Continue with Google
           </Button>

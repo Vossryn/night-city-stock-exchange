@@ -1,5 +1,6 @@
 import { addMinutes, subDays } from 'date-fns'
 import { eq } from 'drizzle-orm'
+
 import { companies, stockPrices } from './schema'
 import { db } from './index'
 import { company_data_seed } from '@/lib/company-data-seed'
@@ -54,7 +55,7 @@ function generatePriceHistory(startPrice: number, days: number) {
 async function seed() {
   console.log('🌱 Seeding database...')
 
-  // 1. Seed Companies
+  // Seed Companies
   console.log('Inserting companies...')
 
   for (const company of company_data_seed) {
@@ -68,7 +69,8 @@ async function seed() {
 
     // Check if company exists
     const existing = await db.query.companies.findFirst({
-      where: (companies, { eq }) => eq(companies.name, company.name),
+      where: (companiesTable, { eq: eqFn }) =>
+        eqFn(companiesTable.name, company.name),
     })
 
     if (!existing) {

@@ -1,8 +1,8 @@
-import * as React from 'react'
 import { OTPInput, OTPInputContext } from 'input-otp'
+import * as React from 'react'
 
-import { MinusIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { MinusIcon } from 'lucide-react'
 
 function InputOTP({
   className,
@@ -46,7 +46,9 @@ function InputOTPSlot({
   index: number
 }) {
   const inputOTPContext = React.useContext(OTPInputContext)
-  const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {}
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const slot = inputOTPContext && inputOTPContext.slots ? inputOTPContext.slots[index] : undefined
+  const { char, hasFakeCaret, isActive } = slot ?? {}
 
   return (
     <div
@@ -81,4 +83,4 @@ function InputOTPSeparator({ ...props }: React.ComponentProps<'div'>) {
   )
 }
 
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }
+export { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot }

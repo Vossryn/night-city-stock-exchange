@@ -1,9 +1,9 @@
 import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
 
 import {
-    ChartContainer,
-    ChartTooltip,
-    ChartTooltipContent,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
 } from '@/components/ui/chart'
 
 interface CompanyDetailProps {
@@ -50,11 +50,16 @@ export function CompanyDetail({ company, history }: CompanyDetailProps) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-4">
           <div className="p-6 border border-gray-700 rounded bg-card">
-            <h2 className="text-xl font-semibold mb-4">Price Chart (30 Days)</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              Price Chart (30 Days)
+            </h2>
             <div className="h-64 w-full">
               <ChartContainer config={chartConfig} className="h-full w-full">
                 <LineChart data={history}>
-                  <CartesianGrid vertical={false} stroke="rgba(255,255,255,0.1)" />
+                  <CartesianGrid
+                    vertical={false}
+                    stroke="rgba(255,255,255,0.1)"
+                  />
                   <XAxis
                     dataKey="date"
                     tickLine={false}

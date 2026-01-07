@@ -90,7 +90,9 @@ ${colorConfig
     const color =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
       itemConfig.color
-    return color ? `  --color-${key.replace(/[^a-zA-Z0-9-]/g, '_')}: ${color};` : null
+    return color
+      ? `  --color-${key.replace(/[^a-zA-Z0-9-]/g, '_')}: ${color};`
+      : null
   })
   .join('\n')}
 }
@@ -136,10 +138,12 @@ function ChartTooltipContent({
     const [item] = payload
     const key = `${labelKey || item.dataKey || item.name || 'value'}`
     const itemConfig = getPayloadConfigFromPayload(config, item, key)
-    const value =
+    const labelValue =
       !labelKey && typeof label === 'string'
-        ? config[label]?.label || label
+        ? // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          config[label]?.label || label
         : itemConfig?.label
+    const value = labelValue !== undefined && labelValue !== null ? labelValue : ''
 
     if (labelFormatter) {
       return (
@@ -345,10 +349,10 @@ function getPayloadConfigFromPayload(
 }
 
 export {
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartStyle,
-  ChartTooltip,
-  ChartTooltipContent
+    ChartContainer,
+    ChartLegend,
+    ChartLegendContent,
+    ChartStyle,
+    ChartTooltip,
+    ChartTooltipContent
 }
