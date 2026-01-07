@@ -1,7 +1,8 @@
-import { db } from '@/db'
-import { companies, stockPrices } from '@/db/schema'
 import { subDays } from 'date-fns'
 import { and, desc, eq, gte, inArray, sql } from 'drizzle-orm'
+
+import { db } from '@/db'
+import { companies, stockPrices } from '@/db/schema'
 
 export async function getCompanyByName(name: string) {
   const result = await db
