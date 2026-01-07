@@ -28,12 +28,19 @@ export const Route = createFileRoute('/market/$symbol')({
 
     return {
       company: {
-        ...dbCompany,
+        id: parseInt(dbCompany.id, 10),
+        name: dbCompany.name,
+        ticker: dbCompany.ticker,
+        sector: dbCompany.sector,
+        price: dbCompany.price,
         image: staticCompany?.image,
         known_affiliations: staticCompany?.known_affiliations || [],
         type: staticCompany?.type || [dbCompany.sector],
       },
-      history,
+      history: history as Array<{
+        date: string
+        [key: string]: number | string
+      }>,
     }
   },
 })

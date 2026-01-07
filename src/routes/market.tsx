@@ -1,5 +1,6 @@
-import { Outlet, createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
+import { MarketListing } from '@/features/market-listing'
 import { useAuthStore } from '@/lib/auth-store'
 
 export const Route = createFileRoute('/market')({
@@ -13,13 +14,5 @@ export const Route = createFileRoute('/market')({
       })
     }
   },
-  component: MarketLayout,
+  component: MarketListing,
 })
-
-function MarketLayout() {
-  return (
-    <div className="p-4">
-      <Outlet />
-    </div>
-  )
-}
