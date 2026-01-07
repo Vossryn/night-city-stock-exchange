@@ -9,12 +9,14 @@ Cyberpunk-themed single-player stock market simulation game. Built with TanStack
 ### Route/Feature Separation (MANDATORY)
 
 Routes (`src/routes/`) handle ONLY routing concerns:
+
 - Auth guards (`beforeLoad`)
 - Data loading (`loader` functions)
 - Route configuration
 - Import feature components from `src/features/`
 
 Example pattern:
+
 ```tsx
 // src/routes/dashboard.tsx
 import { createFileRoute, redirect } from '@tanstack/react-router'
@@ -41,10 +43,12 @@ All server functions are centralized in `src/lib/serverFn/` for easy tracking:
 // Server function definition in src/lib/serverFn/getActiveStocks.ts
 import { createServerFn } from '@tanstack/react-start'
 
-export const getActiveStocks = createServerFn({ method: 'GET' }).handler(async () => {
-  const { getActiveStocksFromDb } = await import('@/lib/db-queries.server')
-  return getActiveStocksFromDb()
-})
+export const getActiveStocks = createServerFn({ method: 'GET' }).handler(
+  async () => {
+    const { getActiveStocksFromDb } = await import('@/lib/db-queries.server')
+    return getActiveStocksFromDb()
+  },
+)
 ```
 
 ```tsx
@@ -64,6 +68,7 @@ export function useGetActiveStocks() {
 ### Config Boundary (SECURITY)
 
 `src/lib/config.ts` exports TWO configs:
+
 - `clientConfig`: Safe for browser (validated with Zod). Import anywhere.
 - `serverConfig`: Contains secrets. Import ONLY in `.server.ts` files or server functions.
 

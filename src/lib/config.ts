@@ -18,6 +18,10 @@ const serverEnvSchema = z.object({
   VITE_GITHUB_CLIENT_SECRET: z
     .string()
     .min(1, 'VITE_GITHUB_CLIENT_SECRET is required'),
+  BETTER_AUTH_SECRET: z
+    .string()
+    .min(32, 'BETTER_AUTH_SECRET must be at least 32 characters'),
+  BETTER_AUTH_URL: z.string().url().optional().default('http://localhost:3000'),
 })
 
 const _clientEnv = clientEnvSchema.safeParse(import.meta.env)
@@ -42,6 +46,8 @@ export const clientConfig = {
 type ServerConfig = {
   googleClientSecret: string
   githubClientSecret: string
+  betterAuthSecret: string
+  betterAuthUrl: string
 }
 
 export const serverConfig: ServerConfig = (() => {
@@ -62,5 +68,7 @@ export const serverConfig: ServerConfig = (() => {
   return {
     googleClientSecret: _serverEnv.data.VITE_GOOGLE_CLIENT_SECRET,
     githubClientSecret: _serverEnv.data.VITE_GITHUB_CLIENT_SECRET || '',
+    betterAuthSecret: _serverEnv.data.BETTER_AUTH_SECRET,
+    betterAuthUrl: _serverEnv.data.BETTER_AUTH_URL,
   }
 })()
