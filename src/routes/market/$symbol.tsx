@@ -3,8 +3,8 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 import { CompanyDetail } from '@/features/company-detail'
 import { getMarketHistory } from '@/hooks/useGetActiveStocks'
 import { getCompany } from '@/hooks/useGetCompany'
-import { company_data } from '@/lib/company-data'
 import { useAuthStore } from '@/lib/auth-store'
+import { company_data } from '@/lib/company-data'
 
 export const Route = createFileRoute('/market/$symbol')({
   beforeLoad: ({ location }) => {
