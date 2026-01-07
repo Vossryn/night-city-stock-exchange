@@ -2,7 +2,7 @@ import { subDays } from 'date-fns'
 import { and, desc, eq, gte, inArray, sql } from 'drizzle-orm'
 
 import { db } from '@/db'
-import { companies, stockPrices } from '@/db/schema'
+import { companies, stockPrices, users } from '@/db/schema'
 
 export async function getCompanyByName(name: string) {
   const result = await db
@@ -162,4 +162,24 @@ export async function getTopMoversFromDb(limit: number = 5) {
     .slice(0, limit)
 
   return movers
+}
+
+export async function getUserById(userId: string) {
+  const result = await db
+    .select()
+    .from(users)
+    .where(eq(users.id, userId))
+    .limit(1)
+
+  return result[0] || null
+}
+
+export async function getUserByEmail(email: string) {
+  const result = await db
+    .select()
+    .from(users)
+    .where(eq(users.email, email))
+    .limit(1)
+
+  return result[0] || null
 }
