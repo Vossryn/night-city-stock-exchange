@@ -46,8 +46,11 @@ function InputOTPSlot({
   index: number
 }) {
   const inputOTPContext = React.useContext(OTPInputContext)
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  const slot = inputOTPContext && inputOTPContext.slots ? inputOTPContext.slots[index] : undefined
+
+  const slot =
+    inputOTPContext && inputOTPContext.slots
+      ? inputOTPContext.slots[index]
+      : undefined
   const { char, hasFakeCaret, isActive } = slot ?? {}
 
   return (

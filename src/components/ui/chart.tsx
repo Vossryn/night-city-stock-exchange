@@ -141,7 +141,8 @@ function ChartTooltipContent({
         ? // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           config[label]?.label || label
         : itemConfig?.label
-    const value = labelValue !== undefined && labelValue !== null ? labelValue : ''
+    const value =
+      labelValue !== undefined && labelValue !== null ? labelValue : ''
 
     if (labelFormatter) {
       return (
@@ -347,10 +348,10 @@ function getPayloadConfigFromPayload(
 }
 
 export {
-    ChartContainer,
-    ChartLegend,
-    ChartLegendContent,
-    ChartStyle,
-    ChartTooltip,
-    ChartTooltipContent
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartStyle,
+  ChartTooltip,
+  ChartTooltipContent,
 }

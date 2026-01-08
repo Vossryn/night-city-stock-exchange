@@ -2,6 +2,7 @@ import { integer, real, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import type { z } from 'zod'
 
+// Application Tables
 export const companies = sqliteTable('companies', {
   id: text('id').primaryKey(),
   name: text('name').notNull(),

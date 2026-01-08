@@ -1,10 +1,13 @@
-export { getCurrentUser, requireAuth } from './auth-middleware'
+// Auth functions (mock for demo)
+export {
+  getCurrentUser,
+  getSession,
+  requireAuth,
+  signOut
+} from '../mock-auth.server'
+
+// Market data functions
 export { getActiveStocks } from './getActiveStocks'
 export { getCompany } from './getCompany'
 export { getMarketHistory } from './getMarketHistory'
-export {
-  getCurrentUser as getCurrentAuthUser,
-  getSession,
-  signOut
-} from './getSession'
 export { getTopMover } from './getTopMover'

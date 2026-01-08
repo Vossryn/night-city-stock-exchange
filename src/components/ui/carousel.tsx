@@ -1,7 +1,7 @@
-import type { UseEmblaCarouselType } from 'embla-carousel-react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import * as React from 'react'
+import type { UseEmblaCarouselType } from 'embla-carousel-react'
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -109,7 +109,8 @@ function Carousel({
         opts,
         orientation:
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          orientation || (opts && opts.axis === 'y' ? 'vertical' : 'horizontal'),
+          orientation ||
+          (opts && opts.axis === 'y' ? 'vertical' : 'horizontal'),
         scrollPrev,
         scrollNext,
         canScrollPrev,
@@ -230,7 +231,11 @@ function CarouselNext({
 }
 
 export {
-    Carousel,
-    CarouselContent,
-    CarouselItem, CarouselNext, CarouselPrevious, useCarousel, type CarouselApi
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  useCarousel,
+  type CarouselApi,
 }

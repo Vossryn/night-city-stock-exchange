@@ -1,22 +1,36 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
+import { useEffect, useState } from 'react'
 
-import { getCurrentAuthUser, signOut } from '@/lib/serverFn'
+import type { DemoUser } from '@/lib/mock-auth'
+import { mockAuth } from '@/lib/mock-auth'
+
 
 /**
- * Hook to access current authenticated user with real-time updates.
+ * Hook to access current authenticated user.
  * Returns null if not authenticated.
  */
 export function useCurrentUser() {
-  const { data: user, isLoading } = useQuery({
-    queryKey: ['currentUser'],
-    queryFn: () => getCurrentAuthUser(),
-    staleTime: 1000 * 60 * 5, // 5 minutes
-    retry: false,
-  })
+  const [user, setUser] = useState<DemoUser | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Get current user from localStorage
+    const currentUser = mockAuth.getCurrentUser()
+    setUser(currentUser)
+    setIsLoading(false)
+
+    // Listen for storage changes (logout from another tab)
+    const handleStorageChange = () => {
+      const updatedUser = mockAuth.getCurrentUser()
+      setUser(updatedUser)
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    return () => window.removeEventListener('storage', handleStorageChange)
+  }, [])
 
   return {
-    user: user || null,
+    user,
     isAuthenticated: !!user,
     isLoading,
   }
@@ -27,13 +41,11 @@ export function useCurrentUser() {
  */
 export function useLogout() {
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
 
-  const logout = async () => {
-    await signOut()
-    queryClient.clear() // Clear all cached data
+  const logout = () => {
+    mockAuth.logout()
     navigate({ to: '/login' })
   }
 
-  return logout
+  return { logout }
 }

@@ -1,13 +1,11 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { MarketListing } from '@/features/market-listing'
-import { getSession } from '@/lib/serverFn'
+import { mockAuth } from '@/lib/mock-auth'
 
 export const Route = createFileRoute('/market')({
-  beforeLoad: async ({ location }) => {
-    const session = await getSession()
-
-    if (!session) {
+  beforeLoad: ({ location }) => {
+    if (!mockAuth.isAuthenticated()) {
       throw redirect({
         to: '/login',
         search: {

@@ -1,56 +1,92 @@
 import { useNavigate } from '@tanstack/react-router'
-import { useEffect } from 'react'
+import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
-import { clientConfig } from '@/lib/config'
+import { Card } from '@/components/ui/card'
+import { DEMO_USERS, mockAuth } from '@/lib/mock-auth'
 
 export function Login() {
   const navigate = useNavigate()
+  const [selectedUser, setSelectedUser] = useState<string | null>(null)
 
-  useEffect(() => {
-    // Check if we're returning from OAuth callback
-    const params = new URLSearchParams(window.location.search)
-    if (params.get('success') === 'true') {
-      navigate({ to: '/dashboard' })
+  const handleSelectUser = (userId: string) => {
+    const user = mockAuth.login(userId)
+    if (user) {
+      // Get redirect URL from search params
+      const params = new URLSearchParams(window.location.search)
+      const redirectUrl = params.get('redirect') || '/dashboard'
+      navigate({ to: redirectUrl as '/' })
     }
-  }, [navigate])
-
-  const handleLogin = (provider: 'github' | 'google') => {
-    // Better Auth OAuth flow: Redirect to the provider's OAuth endpoint
-    const callbackUrl = `${window.location.origin}/api/auth/callback/${provider}`
-    const authUrl = `/api/auth/signin/${provider}?callbackUrl=${encodeURIComponent(callbackUrl)}`
-    window.location.href = authUrl
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <div className="w-full max-w-md p-8 border border-neon-blue rounded-lg bg-card shadow-[0_0_20px_rgba(0,255,255,0.2)]">
-        <h1 className="text-3xl font-bold text-center mb-8 text-neon-blue tracking-wider">
-          NCSE ACCESS
-        </h1>
-
-        <div className="space-y-4">
-          <Button
-            className="w-full bg-white text-black hover:bg-gray-200"
-            variant="outline"
-            onClick={() => handleLogin('github')}
-            disabled={!clientConfig.githubClientId}
-          >
-            Continue with GitHub
-          </Button>
-          <Button
-            className="w-full bg-red-600 text-white hover:bg-red-700"
-            variant="outline"
-            onClick={() => handleLogin('google')}
-            disabled={!clientConfig.googleClientId}
-          >
-            Continue with Google
-          </Button>
+      <div className="w-full max-w-4xl">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-neon-blue tracking-wider mb-2">
+            NCSE ACCESS TERMINAL
+          </h1>
+          <p className="text-gray-400 text-sm">
+            SELECT YOUR NETRUNNER IDENTITY
+          </p>
+          <div className="mt-4 inline-block px-4 py-2 bg-neon-blue/10 border border-neon-blue rounded text-neon-blue text-xs">
+            🎮 DEMO MODE - No real authentication required
+          </div>
         </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {DEMO_USERS.map((user) => (
+            <Card
+              key={user.id}
+              className={`p-6 cursor-pointer transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(0,255,255,0.3)] ${
+                selectedUser === user.id
+                  ? 'border-neon-blue shadow-[0_0_20px_rgba(0,255,255,0.3)]'
+                  : 'border-gray-700'
+              }`}
+              onClick={() => setSelectedUser(user.id)}
+            >
+              <div className="flex flex-col items-center text-center space-y-3">
+                <img
+                  alt={user.name}
+                  className="w-24 h-24 rounded-full border-2 border-neon-blue"
+                  src={user.avatar}
+                />
+                <div>
+                  <h3 className="font-bold text-lg text-neon-blue">
+                    {user.name}
+                  </h3>
+                  <p className="text-sm text-gray-400">{user.role}</p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {user.affiliation}
+                  </p>
+                </div>
+                <div className="text-xs text-gray-500 font-mono">
+                  {user.email}
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        {selectedUser && (
+          <div className="mt-8 text-center">
+            <Button
+              className="bg-neon-blue text-black hover:bg-neon-blue/80 px-8 py-6 text-lg font-bold tracking-wider"
+              onClick={() => handleSelectUser(selectedUser)}
+            >
+              JACK IN
+            </Button>
+          </div>
+        )}
+
         <div className="mt-8 text-center text-sm text-gray-500">
-          <p>Authorized Personnel Only.</p>
-          <p>Unauthorized access is a Class A felony.</p>
+          <p className="font-mono">
+            &gt; SYSTEM STATUS: <span className="text-green-500">ONLINE</span>
+          </p>
+          <p className="mt-2 text-xs">
+            Demo mode active. Click any character to access the trading
+            terminal.
+          </p>
         </div>
       </div>
     </div>

@@ -2,13 +2,12 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 
 import { CompanyDetail } from '@/features/company-detail'
 import { company_data } from '@/lib/company-data'
-import { getCompany, getMarketHistory, getSession } from '@/lib/serverFn'
+import { mockAuth } from '@/lib/mock-auth'
+import { getCompany, getMarketHistory } from '@/lib/serverFn'
 
 export const Route = createFileRoute('/market/$symbol')({
-  beforeLoad: async ({ location }) => {
-    const session = await getSession()
-
-    if (!session) {
+  beforeLoad: ({ location }) => {
+    if (!mockAuth.isAuthenticated()) {
       throw redirect({
         to: '/login',
         search: {
@@ -17,8 +16,8 @@ export const Route = createFileRoute('/market/$symbol')({
       })
     }
   },
-  component: CompanyDetailRoute,
   loader: async ({ params }) => {
+    // Load company data
     const dbCompany = await getCompany({ data: params.symbol })
 
     const history = await getMarketHistory({
@@ -44,6 +43,7 @@ export const Route = createFileRoute('/market/$symbol')({
       }>,
     }
   },
+  component: CompanyDetailRoute,
 })
 
 function CompanyDetailRoute() {

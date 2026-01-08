@@ -15,7 +15,6 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MarketSymbolRouteImport } from './routes/market.$symbol'
-import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
@@ -47,11 +46,6 @@ const MarketSymbolRoute = MarketSymbolRouteImport.update({
   path: '/$symbol',
   getParentRoute: () => MarketRoute,
 } as any)
-const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -60,7 +54,6 @@ export interface FileRoutesByFullPath {
   '/market': typeof MarketRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/market/$symbol': typeof MarketSymbolRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,7 +62,6 @@ export interface FileRoutesByTo {
   '/market': typeof MarketRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/market/$symbol': typeof MarketSymbolRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,7 +71,6 @@ export interface FileRoutesById {
   '/market': typeof MarketRouteWithChildren
   '/portfolio': typeof PortfolioRoute
   '/market/$symbol': typeof MarketSymbolRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -90,7 +81,6 @@ export interface FileRouteTypes {
     | '/market'
     | '/portfolio'
     | '/market/$symbol'
-    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -99,7 +89,6 @@ export interface FileRouteTypes {
     | '/market'
     | '/portfolio'
     | '/market/$symbol'
-    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
@@ -108,7 +97,6 @@ export interface FileRouteTypes {
     | '/market'
     | '/portfolio'
     | '/market/$symbol'
-    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -117,7 +105,6 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   MarketRoute: typeof MarketRouteWithChildren
   PortfolioRoute: typeof PortfolioRoute
-  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,13 +151,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketSymbolRouteImport
       parentRoute: typeof MarketRoute
     }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -191,7 +171,6 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   MarketRoute: MarketRouteWithChildren,
   PortfolioRoute: PortfolioRoute,
-  ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
