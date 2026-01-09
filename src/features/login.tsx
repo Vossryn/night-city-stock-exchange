@@ -3,18 +3,20 @@ import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { DEMO_USERS, mockAuth } from '@/lib/mock-auth'
+import { useAuthStore } from '@/lib/auth-store'
+import { DEMO_USERS } from '@/lib/mock-auth'
 import { usePortfolioStore } from '@/lib/portfolio-store'
 
 export function Login() {
   const navigate = useNavigate()
   const [selectedUser, setSelectedUser] = useState<string | null>(null)
+  const login = useAuthStore((state) => state.login)
   const loadUserPortfolio = usePortfolioStore(
     (state) => state.loadUserPortfolio,
   )
 
   const handleSelectUser = (userId: string) => {
-    const user = mockAuth.login(userId)
+    const user = login(userId)
     if (user) {
       // Load the user's portfolio
       loadUserPortfolio(user.id)

@@ -14,7 +14,8 @@
       "Bash(tasklist:*)",
       "Bash(node -e:*)",
       "Bash(npm run dev:*)",
-      "Bash(git mv:*)"
+      "Bash(git mv:*)",
+      "Bash(git add:*)"
     ]
   }
 }

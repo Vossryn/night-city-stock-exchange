@@ -3,10 +3,11 @@ import { ArrowDownIcon, ArrowUpIcon, MinusIcon } from 'lucide-react'
 
 import { ActiveStocksChart } from '@/components/active-stocks-chart'
 import { MarketControls } from '@/components/market-controls'
+import { useDailyPL } from '@/hooks/useDailySnapshot'
 import { useGetTopMover } from '@/hooks/useGetTopMover'
+import { useMarketStats, useSimulatedStocks } from '@/hooks/useSimulatedStocks'
 import { MarketStatus, useMarketStore } from '@/lib/market-store'
 import { usePortfolioStore } from '@/lib/portfolio-store'
-import { useMarketStats, useSimulatedStocks } from '@/hooks/useSimulatedStocks'
 
 export function Dashboard() {
   const { data: topMover, isLoading: isLoadingTopMover } = useGetTopMover()
@@ -23,13 +24,18 @@ export function Dashboard() {
     (state) => state.getTotalPortfolioValue,
   )
 
+  // Get daily P/L
+  const dailyPL = useDailyPL()
+
   // Calculate top mover from simulated data
   const simulatedTopMover = useMemo(() => {
     if (simulatedStocks.length === 0) return null
 
     let currentTopMover = simulatedStocks[0]
     for (const stock of simulatedStocks) {
-      if (Math.abs(stock.changePercent) > Math.abs(currentTopMover.changePercent)) {
+      if (
+        Math.abs(stock.changePercent) > Math.abs(currentTopMover.changePercent)
+      ) {
         currentTopMover = stock
       }
     }
@@ -69,6 +75,16 @@ export function Dashboard() {
           <p>
             Buying Power:{' '}
             <span className="font-mono text-cyan-400">${cash.toFixed(2)}</span>
+          </p>
+          <p>
+            Daily P/L:{' '}
+            <span
+              className={`font-mono ${dailyPL.value >= 0 ? 'text-green-500' : 'text-red-500'}`}
+            >
+              {dailyPL.value >= 0 ? '+' : ''}${dailyPL.value.toFixed(2)} (
+              {dailyPL.percent >= 0 ? '+' : ''}
+              {dailyPL.percent.toFixed(2)}%)
+            </span>
           </p>
         </div>
         <div className="p-4 border border-cyan-800/50 rounded bg-black/50">

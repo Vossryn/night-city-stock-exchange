@@ -1,8 +1,7 @@
 import { useNavigate } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
 
-import type { DemoUser } from '@/lib/mock-auth'
-import { mockAuth } from '@/lib/mock-auth'
+import { useAuthStore } from '@/lib/auth-store'
+import { useDailySnapshotStore } from '@/lib/daily-snapshot-store'
 import { usePortfolioStore } from '@/lib/portfolio-store'
 
 /**
@@ -10,44 +9,32 @@ import { usePortfolioStore } from '@/lib/portfolio-store'
  * Returns null if not authenticated.
  */
 export function useCurrentUser() {
-  const [user, setUser] = useState<DemoUser | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    // Get current user from localStorage
-    const currentUser = mockAuth.getCurrentUser()
-    setUser(currentUser)
-    setIsLoading(false)
-
-    // Listen for storage changes (logout from another tab)
-    const handleStorageChange = () => {
-      const updatedUser = mockAuth.getCurrentUser()
-      setUser(updatedUser)
-    }
-
-    window.addEventListener('storage', handleStorageChange)
-    return () => window.removeEventListener('storage', handleStorageChange)
-  }, [])
+  const user = useAuthStore((state) => state.user)
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
 
   return {
     user,
-    isAuthenticated: !!user,
-    isLoading,
+    isAuthenticated,
+    isLoading: false, // Zustand hydrates synchronously from localStorage
   }
 }
 
 /**
  * Hook to handle user logout with navigation.
+ * Returns the logout function directly.
  */
 export function useLogout() {
   const navigate = useNavigate()
+  const authLogout = useAuthStore((state) => state.logout)
   const clearPortfolio = usePortfolioStore((state) => state.clearPortfolio)
+  const clearSnapshot = useDailySnapshotStore((state) => state.clearSnapshot)
 
   const logout = () => {
-    mockAuth.logout()
+    authLogout()
     clearPortfolio()
+    clearSnapshot()
     navigate({ to: '/login' })
   }
 
-  return { logout }
+  return logout
 }

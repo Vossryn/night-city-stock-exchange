@@ -364,3 +364,29 @@ export function getHoldingGainLoss(
     totalCost,
   }
 }
+
+/**
+ * Helper function to get day return for a holding
+ * Compares current value to value at day start
+ */
+export function getHoldingDayReturn(
+  holding: Holding,
+  currentPrice: number,
+  priceAtDayStart: number | undefined,
+): {
+  dayReturn: number
+  dayReturnPercent: number
+} {
+  // If no day start price, can't calculate day return
+  if (priceAtDayStart === undefined) {
+    return { dayReturn: 0, dayReturnPercent: 0 }
+  }
+
+  const currentValue = holding.quantity * currentPrice
+  const valueAtDayStart = holding.quantity * priceAtDayStart
+  const dayReturn = currentValue - valueAtDayStart
+  const dayReturnPercent =
+    valueAtDayStart > 0 ? (dayReturn / valueAtDayStart) * 100 : 0
+
+  return { dayReturn, dayReturnPercent }
+}

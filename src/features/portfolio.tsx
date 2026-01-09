@@ -1,8 +1,13 @@
 import { useMemo } from 'react'
 import { ArrowDownIcon, ArrowUpIcon } from 'lucide-react'
 
-import { getHoldingGainLoss, usePortfolioStore } from '@/lib/portfolio-store'
 import { useSimulatedStocks } from '@/hooks/useSimulatedStocks'
+import { useDailySnapshotStore } from '@/lib/daily-snapshot-store'
+import {
+  getHoldingDayReturn,
+  getHoldingGainLoss,
+  usePortfolioStore,
+} from '@/lib/portfolio-store'
 
 export function Portfolio() {
   const holdings = usePortfolioStore((state) => state.holdings)
@@ -11,6 +16,9 @@ export function Portfolio() {
     (state) => state.getTotalPortfolioValue,
   )
   const simulatedStocks = useSimulatedStocks()
+  const getStockPriceAtStart = useDailySnapshotStore(
+    (state) => state.getStockPriceAtStart,
+  )
 
   const holdingsArray = Object.entries(holdings).map(([symbol, holding]) => ({
     symbol,
@@ -94,12 +102,13 @@ export function Portfolio() {
               <th className="p-3 text-right">Current Price</th>
               <th className="p-3 text-right">Value</th>
               <th className="p-3 text-right">Return</th>
+              <th className="p-3 text-right">Day Return</th>
             </tr>
           </thead>
           <tbody>
             {holdingsArray.length === 0 ? (
               <tr>
-                <td className="p-3 text-center text-gray-500" colSpan={7}>
+                <td className="p-3 text-center text-gray-500" colSpan={8}>
                   No holdings yet. Go trade!
                 </td>
               </tr>
@@ -108,6 +117,12 @@ export function Portfolio() {
                 const currentPrice = currentPrices[holding.symbol] || 0
                 const { gainLoss, gainLossPercent, totalValue } =
                   getHoldingGainLoss(holding, currentPrice)
+                const priceAtDayStart = getStockPriceAtStart(holding.symbol)
+                const { dayReturn, dayReturnPercent } = getHoldingDayReturn(
+                  holding,
+                  currentPrice,
+                  priceAtDayStart,
+                )
 
                 return (
                   <tr key={holding.symbol} className="border-t border-gray-700">
@@ -139,6 +154,21 @@ export function Portfolio() {
                         <span>${gainLoss.toFixed(2)}</span>
                         <span className="text-xs">
                           ({gainLossPercent.toFixed(2)}%)
+                        </span>
+                      </div>
+                    </td>
+                    <td
+                      className={`p-3 text-right font-mono ${dayReturn >= 0 ? 'text-green-500' : 'text-red-500'}`}
+                    >
+                      <div className="flex items-center justify-end gap-1">
+                        {dayReturn > 0 ? (
+                          <ArrowUpIcon className="w-3 h-3" />
+                        ) : dayReturn < 0 ? (
+                          <ArrowDownIcon className="w-3 h-3" />
+                        ) : null}
+                        <span>${dayReturn.toFixed(2)}</span>
+                        <span className="text-xs">
+                          ({dayReturnPercent.toFixed(2)}%)
                         </span>
                       </div>
                     </td>

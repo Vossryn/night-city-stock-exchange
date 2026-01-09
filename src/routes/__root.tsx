@@ -16,6 +16,7 @@ import type { QueryClient } from '@tanstack/react-query'
 import { AppNavigation } from '@/components/app-navigation'
 import { TerminalLayout } from '@/components/terminal-layout'
 import { Toaster } from '@/components/ui/sonner'
+import { useDailySnapshotInit } from '@/hooks/useDailySnapshot'
 import { useMarketSimulation } from '@/hooks/useMarketSimulation'
 import { mockAuth } from '@/lib/mock-auth'
 import { usePortfolioStore } from '@/lib/portfolio-store'
@@ -72,6 +73,9 @@ function AppContent() {
 
   // Initialize market simulation (runs throughout the app)
   useMarketSimulation()
+
+  // Initialize daily snapshot tracking (captures "start of day" prices)
+  useDailySnapshotInit()
 
   return (
     <>
