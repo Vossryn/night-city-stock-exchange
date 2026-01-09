@@ -30,7 +30,6 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 **Legend:**
 
 - [x] = Fully implemented and functional
-- [x] with note = UI/structure complete, needs integration/data
 - [ ] = Not yet implemented
 
 ### 3.1 Dashboard & Overview
@@ -38,34 +37,33 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 - [x] **Market Status:** Display current market status (Open/Closed) and time.
 - [x] **Market Movers:** Show top gainer with 7-day performance.
 - [x] **Multi-Company Chart:** Interactive chart comparing top 10 companies with timeframe selector.
-- [x] **Account Snapshot UI:**
-  - [x] Total Net Worth (Cash + Current Value of Holdings) - Shows $0.00 placeholder.
-  - [x] Available Buying Power (Cash Balance) - Shows $0.00 placeholder.
-  - [x] Daily Profit/Loss (Value and Percentage) - Shows $0.00 placeholder.
-  - [ ] **Status:** UI complete, needs integration with portfolio state management.
+- [x] **Account Snapshot:**
+  - [x] Total Net Worth (Cash + Current Value of Holdings) - Fully integrated with portfolio store.
+  - [x] Available Buying Power (Cash Balance) - Displays real cash balance from portfolio.
+  - [ ] Daily Profit/Loss (Value and Percentage) - Placeholder, needs daily tracking implementation.
 
 ### 3.2 Stock Market Mechanics
 
-- [ ] **Price Simulation:** Prices update in real-time based on simulated market activity or random walk algorithms.
-- [ ] **Trading Engine:**
-  - [ ] **Buy Orders:**
-    - [ ] Input: Stock Symbol, Quantity.
-    - [ ] Validation: Check if User Cash >= (Price \* Quantity).
-    - [ ] Execution: Deduct cash, add shares to portfolio.
-  - [ ] **Sell Orders:**
-    - [ ] Input: Stock Symbol, Quantity.
-    - [ ] Validation: Check if User Shares >= Quantity.
-    - [ ] Execution: Remove shares, add cash to balance.
-  - [ ] **Order Confirmation:** Display estimated total cost/payout before confirming.
-- [ ] **Transaction History:** Log every trade with: Date/Time, Symbol, Type (Buy/Sell), Quantity, Price per Share, Total Value.
+- [x] **Price Simulation:** Real-time random walk algorithm with sector-based volatility (0.5x-2.0x multipliers), 2% spike chance, configurable tick interval (1-10 seconds).
+- [x] **Trading Engine:**
+  - [x] **Buy Orders:**
+    - [x] Input: Stock Symbol, Quantity.
+    - [x] Validation: Check if User Cash >= (Price \* Quantity).
+    - [x] Execution: Deduct cash, add shares to portfolio, update average cost basis.
+  - [x] **Sell Orders:**
+    - [x] Input: Stock Symbol, Quantity.
+    - [x] Validation: Check if User Shares >= Quantity.
+    - [x] Execution: Remove shares, add cash to balance.
+  - [x] **Order Confirmation:** Displays estimated total cost/payout in real-time before trade execution.
+- [x] **Transaction History:** All trades logged with Date/Time, Symbol, Type, Quantity, Price, Total. (Note: Viewer UI not implemented).
 
 ### 3.3 Company Information
 
 - [x] **Company Profile:** Display logo, description, sector (e.g., Arasaka, Militech), and affiliations.
 - [x] **Company Detail Page:** Dedicated page per company with full profile and trading panel.
-- [ ] **Stock Data:**
-  - [x] Current Price on detail page.
-  - [ ] Current Price, Change ($), Change (%) on market listing cards.
+- [x] **Stock Data:**
+  - [x] Current Price on detail page with real-time simulated updates.
+  - [x] Current Price, Change (%) on market listing cards with up/down/flat indicators.
   - [ ] Key Stats: Market Cap, Volume, Day High/Low, 52-Week High/Low.
 - [x] **Interactive Charts:**
   - [x] Line charts with 30-day historical data.
@@ -76,15 +74,14 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 
 ### 3.4 User Portfolio
 
-- [x] **Holdings List UI:** Table structure displaying for each owned stock:
-  - [ ] Symbol/Name (structure exists, no data).
-  - [ ] Quantity Owned.
-  - [ ] Average Cost Basis.
-  - [ ] Current Price.
-  - [ ] Current Value (Quantity \* Current Price).
-  - [ ] Total Return ($ and %).
-  - [ ] Day Return ($ and %).
-  - [ ] **Status:** UI complete, needs state management and data integration.
+- [x] **Holdings List:** Fully functional table displaying for each owned stock:
+  - [x] Symbol/Name - Displays ticker and company name.
+  - [x] Quantity Owned - Shows shares held.
+  - [x] Average Cost Basis - Calculated from purchase history.
+  - [x] Current Price - Real-time from simulated market.
+  - [x] Current Value (Quantity \* Current Price) - Calculated in real-time.
+  - [x] Total Return ($ and %) - Calculated with color-coded indicators.
+  - [ ] Day Return ($ and %) - Not implemented, needs daily tracking.
 - [ ] **Portfolio Analytics:**
   - [x] Chart placeholders with cyberpunk styling.
   - [ ] Visual breakdown of portfolio allocation (Pie chart by Sector or Company).
@@ -108,7 +105,7 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 ### 4.1 Performance
 
 - [ ] Application initial load time should be under 1.5 seconds.
-- [ ] Market simulation "tick" should occur every 3-5 seconds.
+- [x] Market simulation "tick" - Configurable 1-10 seconds (default 4 seconds).
 - [ ] UI updates must be smooth (60fps) during price changes.
 
 ### 4.2 UI/UX
@@ -122,24 +119,39 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 
 - [x] **Database:** SQLite database with 45+ companies and 365 days of historical price data (seeded).
 - [x] **Authentication State:** User session persisted to localStorage via mock auth.
-- [ ] **Local Storage:** User portfolio data (Holdings, Cash, Transaction History) must be saved to `localStorage`.
-- [ ] **Auto-Save:** Game state should auto-save on every transaction and periodically (e.g., every 30 seconds).
+- [x] **Local Storage:** User portfolio data (Holdings, Cash, Transaction History) saved to localStorage, scoped per user.
+- [x] **Auto-Save:** Portfolio state auto-saves on every transaction via Zustand persist middleware.
 
 ## 5. Tech Stack
 
 - **Frontend:** React 19, TanStack Start (SSR), TypeScript
 - **Routing:** TanStack Router (File-based)
 - **Database:** SQLite + Drizzle ORM
-- **Styling:** Tailwind CSS v4, shadcn/ui (45+ components)
-- **State Management:** Zustand (installed, not yet implemented)
+- **Styling:** Tailwind CSS v4, shadcn/ui (55+ components)
+- **State Management:** Zustand with two stores:
+  - `market-store.ts` - Real-time price simulation and market status
+  - `portfolio-store.ts` - Holdings, cash, transactions with localStorage persistence
 - **Authentication:** Mock Auth System (localStorage-based, 6 demo characters)
 - **Charts:** Recharts
 - **Utilities:** date-fns (Date formatting), lucide-react (Icons), TanStack Query
 
-## 6. Future Scope / Roadmap
+## 6. MVP Remaining Work
+
+The following items are needed to complete the MVP:
+
+- [ ] **Transaction History Viewer:** UI to display logged trades (backend recording exists).
+- [ ] **Daily P/L Tracking:** Implement daily value snapshots for profit/loss calculations.
+- [ ] **Day Return in Portfolio:** Calculate and display daily return per holding.
+- [ ] **User Avatar Display:** Show selected character avatar in navigation.
+- [ ] **Key Stock Stats:** Market Cap, Volume, Day High/Low, 52-Week High/Low.
+
+## 7. Future Scope / Roadmap
 
 - [ ] **Leaderboards:** Global rankings based on net worth (requires backend).
 - [ ] **Events System:** Random events (e.g., "Corporate War", "Data Leak") that drastically affect specific sectors.
 - [ ] **Margin Trading:** Ability to borrow money to trade (leverage).
 - [ ] **Options Trading:** Calls and Puts for advanced speculation.
 - [ ] **Save Import/Export:** Ability to export save string to transfer progress between devices.
+- [ ] **Candlestick Charts:** Advanced charting with OHLC data.
+- [ ] **Extended Timeframes:** 1D, 1W, 1Y, All historical views.
+- [ ] **News Feed:** Generated news affecting stock prices.
