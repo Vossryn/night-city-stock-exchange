@@ -4,14 +4,21 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { DEMO_USERS, mockAuth } from '@/lib/mock-auth'
+import { usePortfolioStore } from '@/lib/portfolio-store'
 
 export function Login() {
   const navigate = useNavigate()
   const [selectedUser, setSelectedUser] = useState<string | null>(null)
+  const loadUserPortfolio = usePortfolioStore(
+    (state) => state.loadUserPortfolio,
+  )
 
   const handleSelectUser = (userId: string) => {
     const user = mockAuth.login(userId)
     if (user) {
+      // Load the user's portfolio
+      loadUserPortfolio(user.id)
+
       // Get redirect URL from search params
       const params = new URLSearchParams(window.location.search)
       const redirectUrl = params.get('redirect') || '/dashboard'

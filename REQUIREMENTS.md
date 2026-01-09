@@ -27,14 +27,22 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 
 ## 3. Functional Requirements
 
+**Legend:**
+
+- [x] = Fully implemented and functional
+- [x] with note = UI/structure complete, needs integration/data
+- [ ] = Not yet implemented
+
 ### 3.1 Dashboard & Overview
 
 - [x] **Market Status:** Display current market status (Open/Closed) and time.
-- [x] **Market Movers:** Show top gainers, losers, and most active stocks by volume.
-- [x] **Account Snapshot:**
-  - [x] Total Net Worth (Cash + Current Value of Holdings).
-  - [x] Available Buying Power (Cash Balance).
-  - [x] Daily Profit/Loss (Value and Percentage).
+- [x] **Market Movers:** Show top gainer with 7-day performance.
+- [x] **Multi-Company Chart:** Interactive chart comparing top 10 companies with timeframe selector.
+- [x] **Account Snapshot UI:**
+  - [x] Total Net Worth (Cash + Current Value of Holdings) - Shows $0.00 placeholder.
+  - [x] Available Buying Power (Cash Balance) - Shows $0.00 placeholder.
+  - [x] Daily Profit/Loss (Value and Percentage) - Shows $0.00 placeholder.
+  - [ ] **Status:** UI complete, needs integration with portfolio state management.
 
 ### 3.2 Stock Market Mechanics
 
@@ -53,38 +61,47 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 
 ### 3.3 Company Information
 
-- [x] **Company Profile:** Display logo, description, sector (e.g., Arasaka, Militech), and CEO.
+- [x] **Company Profile:** Display logo, description, sector (e.g., Arasaka, Militech), and affiliations.
+- [x] **Company Detail Page:** Dedicated page per company with full profile and trading panel.
 - [ ] **Stock Data:**
-  - [ ] Current Price, Change ($), Change (%).
+  - [x] Current Price on detail page.
+  - [ ] Current Price, Change ($), Change (%) on market listing cards.
   - [ ] Key Stats: Market Cap, Volume, Day High/Low, 52-Week High/Low.
-- [ ] **Interactive Charts:**
-  - [ ] Line/Candlestick charts.
-  - [ ] Timeframes: 1D, 1W, 1M, 3M, 1Y, All.
+- [x] **Interactive Charts:**
+  - [x] Line charts with 30-day historical data.
+  - [x] Multi-company comparison chart on dashboard (timeframes: 1M, 3M, 6M, 12M).
+  - [ ] Candlestick charts.
+  - [ ] Extended timeframes on detail page: 1D, 1W, 1M, 3M, 1Y, All.
 - [ ] **News Feed:** [Optional] Generated news items affecting stock prices.
 
 ### 3.4 User Portfolio
 
-- [x] **Holdings List:** Table displaying for each owned stock:
-  - [ ] Symbol/Name.
+- [x] **Holdings List UI:** Table structure displaying for each owned stock:
+  - [ ] Symbol/Name (structure exists, no data).
   - [ ] Quantity Owned.
   - [ ] Average Cost Basis.
   - [ ] Current Price.
   - [ ] Current Value (Quantity \* Current Price).
   - [ ] Total Return ($ and %).
   - [ ] Day Return ($ and %).
+  - [ ] **Status:** UI complete, needs state management and data integration.
 - [ ] **Portfolio Analytics:**
+  - [x] Chart placeholders with cyberpunk styling.
   - [ ] Visual breakdown of portfolio allocation (Pie chart by Sector or Company).
-  - [ ] Historical Portfolio Value chart.
+  - [ ] Historical Portfolio Value chart with actual data.
 
 ### 3.5 Authentication
 
 - [x] **Sign In / Sign Up:**
-  - [ ] Support for GitHub OAuth.
-  - [ ] Support for Google OAuth.
-  - [ ] Stateless session management using JWT.
-- [ ] **User Profile:**
-  - [ ] Display user avatar and name from OAuth provider.
-  - [ ] Logout functionality.
+  - [x] Mock authentication system with character selection (Demo Mode).
+  - [x] 6 pre-defined cyberpunk characters: V, Johnny Silverhand, Judy Alvarez, Panam Palmer, River Ward, Takemura.
+  - [x] Client-side session management using localStorage.
+  - [ ] ~~Support for GitHub OAuth~~ (Deferred - using mock auth for MVP demo).
+  - [ ] ~~Support for Google OAuth~~ (Deferred - using mock auth for MVP demo).
+- [x] **User Profile:**
+  - [x] Display user name in navigation.
+  - [x] Logout functionality.
+  - [ ] Display user avatar from selected character.
 
 ## 4. Non-Functional Requirements
 
@@ -103,18 +120,21 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 
 ### 4.3 Data Persistence
 
-- [ ] **Local Storage:** All user data (Portfolio, Cash, Transaction History) and Market State must be saved to the browser's `localStorage`.
+- [x] **Database:** SQLite database with 45+ companies and 365 days of historical price data (seeded).
+- [x] **Authentication State:** User session persisted to localStorage via mock auth.
+- [ ] **Local Storage:** User portfolio data (Holdings, Cash, Transaction History) must be saved to `localStorage`.
 - [ ] **Auto-Save:** Game state should auto-save on every transaction and periodically (e.g., every 30 seconds).
 
 ## 5. Tech Stack
 
-- **Frontend:** React 19, Vite, TypeScript
-- **Routing:** TanStack Router
-- **Styling:** Tailwind CSS v4, shadcn/ui
-- **State Management:** Zustand
-- **Authentication:** better-auth (Stateless Mode, GitHub & Google OAuth)
+- **Frontend:** React 19, TanStack Start (SSR), TypeScript
+- **Routing:** TanStack Router (File-based)
+- **Database:** SQLite + Drizzle ORM
+- **Styling:** Tailwind CSS v4, shadcn/ui (45+ components)
+- **State Management:** Zustand (installed, not yet implemented)
+- **Authentication:** Mock Auth System (localStorage-based, 6 demo characters)
 - **Charts:** Recharts
-- **Utilities:** date-fns (Date formatting), lucide-react (Icons)
+- **Utilities:** date-fns (Date formatting), lucide-react (Icons), TanStack Query
 
 ## 6. Future Scope / Roadmap
 

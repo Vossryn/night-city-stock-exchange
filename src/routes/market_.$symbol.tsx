@@ -1,11 +1,11 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 
 import { CompanyDetail } from '@/features/company-detail'
 import { company_data } from '@/lib/company-data'
 import { mockAuth } from '@/lib/mock-auth'
 import { getCompany, getMarketHistory } from '@/lib/serverFn'
 
-export const Route = createFileRoute('/market/$symbol')({
+export const Route = createFileRoute('/market_/$symbol')({
   beforeLoad: ({ location }) => {
     if (!mockAuth.isAuthenticated()) {
       throw redirect({
@@ -19,6 +19,11 @@ export const Route = createFileRoute('/market/$symbol')({
   loader: async ({ params }) => {
     // Load company data
     const dbCompany = await getCompany({ data: params.symbol })
+
+    // Handle case where company is not found in database
+    if (!dbCompany) {
+      throw notFound()
+    }
 
     const history = await getMarketHistory({
       data: { days: 30, companyIds: [dbCompany.id] },

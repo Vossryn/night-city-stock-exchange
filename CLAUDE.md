@@ -65,6 +65,17 @@ export function useGetActiveStocks() {
 
 **Critical**: All database queries MUST be in `src/lib/db-queries.server.ts` and dynamically imported to avoid bundling server code in client.
 
+### Authentication (DEMO MODE)
+
+**Mock Auth System** (`src/lib/mock-auth.ts`):
+
+- 6 pre-defined cyberpunk characters: V, Johnny Silverhand, Judy Alvarez, Panam Palmer, River Ward, Takemura
+- Client-side only (localStorage-based, no passwords)
+- Functions: `login()`, `logout()`, `getCurrentUser()`, `isAuthenticated()`, `getAvailableUsers()`
+- Server stub: `src/lib/mock-auth.server.ts` (no-op functions for demo compatibility)
+
+**Route Guards**: All protected routes use `beforeLoad` with `mockAuth.isAuthenticated()` check.
+
 ### Config Boundary (SECURITY)
 
 `src/lib/config.ts` exports TWO configs:
@@ -74,12 +85,19 @@ export function useGetActiveStocks() {
 
 **Never** expose `serverConfig` in client components or routes.
 
+**Note**: OAuth environment variables in config are currently unused (mock auth is active).
+
 ### State Management
 
-- **Auth**: `src/lib/auth-store.ts` - Zustand with `persist` middleware (localStorage)
-- **Market/Portfolio**: Create similar stores in `src/lib/` with Zustand
-- Access in routes: `useAuthStore.getState()` for synchronous checks in guards
-- Access in components: `useAuthStore()` hook for reactive state
+- **Auth**: `src/lib/mock-auth.ts` - localStorage-based (no Zustand yet)
+- **Market/Portfolio**: NOT YET IMPLEMENTED - Need Zustand stores in `src/lib/`
+- Access in routes: `mockAuth.isAuthenticated()` for synchronous checks in guards
+- Access in components: `useCurrentUser()` hook from `src/hooks/useCurrentUser.ts`
+
+**TODO**: Implement Zustand stores for:
+
+- Portfolio state (holdings, cash balance, transactions)
+- Market state (if needed for real-time simulation)
 
 ### Database Layer
 
@@ -118,5 +136,14 @@ npm run lint         # ESLint only (no fix)
 - `src/routes/__root.tsx` - App shell, QueryClient provider, layout
 - `src/components/app-navigation.tsx` - Main nav (extracted from root)
 - `src/lib/company-data.ts` - Static company metadata
+- `src/lib/mock-auth.ts` - Mock authentication (6 demo users)
+- `src/db/schema.ts` - Database schema (companies, stockPrices tables)
+- `src/db/seed.ts` - Database seeding script (365 days price history)
 - `vite.config.ts` - TanStack Start, Nitro, Tailwind, tsconfig-paths plugins
 - `REQUIREMENTS.md` - Feature checklist (checkboxes track implementation)
+
+## Known Issues
+
+- **Missing auth-middleware.ts**: All 4 server functions in `src/lib/serverFn/` import from non-existent `./auth-middleware.ts`
+- **Unused dependencies**: `better-auth` and `zustand` in package.json but not actively used
+- **Trading engine**: BUY/SELL buttons exist but have no functionality (needs implementation)

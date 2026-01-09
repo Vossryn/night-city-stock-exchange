@@ -7,6 +7,7 @@ import {
   createRootRouteWithContext,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+import React from 'react'
 
 import appCss from '../styles.css?url'
 
@@ -14,6 +15,10 @@ import type { QueryClient } from '@tanstack/react-query'
 
 import { AppNavigation } from '@/components/app-navigation'
 import { TerminalLayout } from '@/components/terminal-layout'
+import { Toaster } from '@/components/ui/sonner'
+import { useMarketSimulation } from '@/hooks/useMarketSimulation'
+import { mockAuth } from '@/lib/mock-auth'
+import { usePortfolioStore } from '@/lib/portfolio-store'
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient
@@ -47,13 +52,37 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <AppContent />
+    </QueryClientProvider>
+  )
+}
+
+function AppContent() {
+  const loadUserPortfolio = usePortfolioStore(
+    (state) => state.loadUserPortfolio,
+  )
+
+  // Initialize current user in portfolio store on mount
+  React.useEffect(() => {
+    const currentUser = mockAuth.getCurrentUser()
+    if (currentUser) {
+      loadUserPortfolio(currentUser.id)
+    }
+  }, [loadUserPortfolio])
+
+  // Initialize market simulation (runs throughout the app)
+  useMarketSimulation()
+
+  return (
+    <>
       <TerminalLayout>
         <AppNavigation />
         <main className="flex-1">
           <Outlet />
         </main>
       </TerminalLayout>
-    </QueryClientProvider>
+      <Toaster />
+    </>
   )
 }
 

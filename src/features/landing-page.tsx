@@ -4,6 +4,17 @@ import { ArrowRight, ShieldAlert, TrendingUp, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { company_data } from '@/lib/company-data'
 
+// Generate deterministic "random-looking" price from company index
+const getPseudoPrice = (index: number) => {
+  const base = ((index * 137 + 42) % 900) + 100
+  return base
+}
+
+const getPseudoChange = (index: number) => {
+  const base = ((index * 73 + 17) % 500) / 100
+  return base.toFixed(2)
+}
+
 export const LandingPage = () => {
   // Get a few random companies for the "Hot Picks" section
   const featuredCompanies = company_data.slice(0, 3)
@@ -57,11 +68,9 @@ export const LandingPage = () => {
               <span className="text-cyan-300 font-bold">
                 {company.name.toUpperCase().substring(0, 4)}
               </span>
-              <span className="text-cyan-500">
-                {Math.floor(Math.random() * 1000)}€$
-              </span>
+              <span className="text-cyan-500">{getPseudoPrice(i)}€$</span>
               <span className={i % 2 === 0 ? 'text-green-500' : 'text-red-600'}>
-                {i % 2 === 0 ? '▲' : '▼'} {(Math.random() * 5).toFixed(2)}%
+                {i % 2 === 0 ? '▲' : '▼'} {getPseudoChange(i)}%
               </span>
             </div>
           ))}

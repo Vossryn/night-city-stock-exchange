@@ -3,7 +3,7 @@ export {
   getCurrentUser,
   getSession,
   requireAuth,
-  signOut
+  signOut,
 } from '../mock-auth.server'
 
 // Market data functions

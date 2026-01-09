@@ -12,6 +12,6 @@ export default [
     },
   },
   {
-    ignores: ['*.config.js'],
+    ignores: ['*.config.js', '.output/**', '.vinxi/**', '.nitro/**'],
   },
 ]

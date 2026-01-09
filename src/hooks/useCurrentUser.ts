@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 import type { DemoUser } from '@/lib/mock-auth'
 import { mockAuth } from '@/lib/mock-auth'
-
+import { usePortfolioStore } from '@/lib/portfolio-store'
 
 /**
  * Hook to access current authenticated user.
@@ -41,9 +41,11 @@ export function useCurrentUser() {
  */
 export function useLogout() {
   const navigate = useNavigate()
+  const clearPortfolio = usePortfolioStore((state) => state.clearPortfolio)
 
   const logout = () => {
     mockAuth.logout()
+    clearPortfolio()
     navigate({ to: '/login' })
   }
 

@@ -1,5 +1,6 @@
 // This file is a simplified version of company-data.ts without image imports
 // to be used by the seed script in Node environment
+// IMPORTANT: Names must match exactly with company_data.ts
 
 export const company_data_seed = [
   {
@@ -14,7 +15,7 @@ export const company_data_seed = [
   },
   {
     name: 'Arasaka',
-    type: ['Corporate security', 'banking', 'manufacturing'],
+    type: ['Corporate security', 'Manufacturing', 'Banking'],
     known_affiliations: [],
   },
   {
@@ -24,16 +25,20 @@ export const company_data_seed = [
   },
   {
     name: 'Avante',
-    type: ['Cyberware manufacturer'],
+    type: ['Weapons manufacturer', 'Clothing brand', 'Store chain'],
     known_affiliations: [],
   },
   {
     name: 'Biotechnica',
-    type: ['Biotechnology', 'genetic engineering', 'pharmaceuticals'],
-    known_affiliations: [],
+    type: [
+      'Genetic engineering',
+      'Microbiological research',
+      'Biochemical research',
+    ],
+    known_affiliations: ['Petrochem', 'Arasaka'],
   },
   {
-    name: 'Braindance',
+    name: 'Braindance Inc.',
     type: ['Entertainment'],
     known_affiliations: [],
   },
@@ -44,7 +49,7 @@ export const company_data_seed = [
   },
   {
     name: 'Budget Arms',
-    type: ['Arms manufacturer'],
+    type: ['Weapons Manufacturer'],
     known_affiliations: [],
   },
   {
@@ -53,78 +58,83 @@ export const company_data_seed = [
     known_affiliations: [],
   },
   {
+    name: 'Combat Cab',
+    type: ['Taxi company'],
+    known_affiliations: [],
+  },
+  {
     name: 'Constitutional Arms',
-    type: ['Arms manufacturer'],
+    type: ['Weapons Manufacturer'],
     known_affiliations: [],
   },
   {
     name: 'Corp-Bud',
-    type: ['Service'],
+    type: ['Construction company'],
     known_affiliations: [],
   },
   {
-    name: 'Dakai',
-    type: ['Arms manufacturer'],
+    name: 'Dakai Soundsystems',
+    type: ['Vocal Cyberware', 'Manufacturer'],
     known_affiliations: [],
   },
   {
     name: 'Darra Polytechnic',
-    type: ['Arms manufacturer'],
+    type: ['Weapons Manufacturer'],
     known_affiliations: [],
   },
   {
     name: 'Data Inc.',
-    type: ['Information'],
+    type: ['Electronics manufacturer'],
     known_affiliations: [],
   },
   {
-    name: 'Delamain',
-    type: ['Transportation', 'AI'],
+    name: 'Delamain Corporation',
+    type: ['Taxi company'],
     known_affiliations: [],
   },
   {
     name: 'Dynalar',
-    type: ['Cyberware manufacturer'],
+    type: ['Cybernetic Technology'],
     known_affiliations: [],
   },
   {
-    name: 'Fuyutsuki',
-    type: ['Electronics'],
+    name: 'Fuyutsuki Electronics',
+    type: ['Electronics Manufacturer', 'Electronics Store'],
     known_affiliations: [],
   },
   {
-    name: 'Hydro Subsidium',
-    type: ['Energy', 'Utilities'],
+    name: 'Hydrosubsidium',
+    type: ['Underwater technologies'],
     known_affiliations: [],
   },
   {
     name: 'Jinguji',
-    type: ['Fashion'],
-    known_affiliations: [],
+    type: ['Clothing brand & store chain'],
+    known_affiliations: ['Arasaka'],
   },
   {
     name: 'Kang Tao',
-    type: ['Arms manufacturer', 'Smart weapons'],
-    known_affiliations: [],
+    type: ['Corporate Weapons Manufacturer', 'Weapons Manufacturer'],
+    known_affiliations: ['QianT'],
   },
   {
     name: 'Kaukaz',
-    type: ['Vehicle manufacturer'],
+    type: ['Vehicle Manufacturer'],
     known_affiliations: [],
   },
   {
     name: 'Kendachi',
-    type: ['Arms manufacturer', 'Monoweapons'],
+    type: ['Arms Manufacturer'],
     known_affiliations: [],
   },
   {
     name: 'Kiroshi',
-    type: ['Cyberware manufacturer', 'Optics'],
+    type: ['Optics Manufacturing', 'Cyberware Manufacturing'],
     known_affiliations: [],
   },
   {
     name: 'Macroware',
-    type: ['Software'],
+    type: ['Video game developer'],
     known_affiliations: [],
   },
   {
@@ -138,14 +148,18 @@ export const company_data_seed = [
     known_affiliations: [],
   },
   {
-    name: 'Maxi-Wear',
-    type: ['Fashion'],
+    name: 'MaxiWear',
+    type: ['Leisurewear brand'],
     known_affiliations: [],
   },
   {
     name: 'Militech',
-    type: ['Arms manufacturer', 'Private military contractor'],
-    known_affiliations: [],
+    type: [
+      'Arms manufacturing',
+      'Military vehicle production',
+      'Mercenary contracting',
+    ],
+    known_affiliations: ['NUSA'],
   },
   {
     name: 'Mizutani',
@@ -153,43 +167,52 @@ export const company_data_seed = [
     known_affiliations: [],
   },
   {
-    name: 'Moore Technologies',
-    type: ['Cyberware manufacturer'],
+    name: 'MoorE Technologies',
+    type: ['Cyberware Manufacturer'],
     known_affiliations: [],
   },
   {
     name: 'Nokota',
-    type: ['Arms manufacturer'],
+    type: ['Weapons manufacturer'],
     known_affiliations: [],
   },
   {
     name: 'Orbital Air',
-    type: ['Transportation', 'Space'],
+    type: [
+      'Cargo transport to Earth orbit',
+      'Passenger transport to Earth orbit',
+      'Maintenance of commercial orbital facilities',
+    ],
     known_affiliations: [],
   },
   {
     name: 'Petrochem',
-    type: ['Energy', 'Agriculture'],
-    known_affiliations: [],
+    type: ['Petrochemical products', 'Agribusiness'],
+    known_affiliations: ['Biotechnica'],
   },
   {
     name: 'Planetran',
-    type: ['Transportation'],
+    type: ['Railway transport'],
     known_affiliations: [],
+  },
+  {
+    name: 'Quadra',
+    type: ['Vehicle manufacturer'],
+    known_affiliations: ['Dayton'],
   },
   {
     name: 'Rayfield',
-    type: ['Vehicle manufacturer', 'Luxury'],
+    type: ['Vehicle manufacturer'],
     known_affiliations: [],
   },
   {
-    name: 'RCS',
-    type: ['Logistics'],
+    name: 'Revere Courier Services',
+    type: ['Shipping business'],
     known_affiliations: [],
   },
   {
-    name: 'Rostovic',
-    type: ['Arms manufacturer'],
+    name: 'Rostović',
+    type: ['Weapons Manufacturer'],
     known_affiliations: [],
   },
   {
@@ -199,12 +222,12 @@ export const company_data_seed = [
   },
   {
     name: 'Trauma Team',
-    type: ['Medical', 'Security'],
-    known_affiliations: [],
+    type: ['Ambulance Paramedica'],
+    known_affiliations: ['Delamain Corporation'],
   },
   {
-    name: 'Tsunami Defense Systems',
-    type: ['Arms manufacturer'],
+    name: 'Tsunami',
+    type: ['Weapons Manufacturer'],
     known_affiliations: [],
   },
   {
@@ -219,7 +242,14 @@ export const company_data_seed = [
   },
   {
     name: 'Zetatech',
-    type: ['Computer hardware', 'Software'],
+    type: [
+      'Wetware',
+      'computer hardware',
+      'software design',
+      'heavy machinery',
+      'transportation',
+      'shipping',
+    ],
     known_affiliations: [],
   },
 ]
