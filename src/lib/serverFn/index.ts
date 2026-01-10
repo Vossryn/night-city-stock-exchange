@@ -10,4 +10,5 @@ export {
 export { getActiveStocks } from './getActiveStocks'
 export { getCompany } from './getCompany'
 export { getMarketHistory } from './getMarketHistory'
+export { getStockStats } from './getStockStats'
 export { getTopMover } from './getTopMover'

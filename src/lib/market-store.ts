@@ -15,6 +15,10 @@ export interface SimulatedStock {
   changePercent: number
   lastUpdate: Date
   volatility: number
+  // Day stats for tracking intraday high/low
+  dayOpen: number
+  dayHigh: number
+  dayLow: number
 }
 
 /**
@@ -96,6 +100,10 @@ export const useMarketStore = create<MarketState>((set, get) => ({
         changePercent: 0,
         lastUpdate: new Date(),
         volatility,
+        // Initialize day stats - price at market open is the starting point
+        dayOpen: stock.price,
+        dayHigh: stock.price,
+        dayLow: stock.price,
       })
     }
 
@@ -122,12 +130,17 @@ export const useMarketStore = create<MarketState>((set, get) => ({
         stock.volatility,
       )
 
+      const newPrice = priceUpdate.price
+
       updatedStocks.set(id, {
         ...stock,
         previousPrice: stock.currentPrice,
-        currentPrice: priceUpdate.price,
+        currentPrice: newPrice,
         changePercent: priceUpdate.changePercent,
         lastUpdate: priceUpdate.timestamp,
+        // Update day high/low if new price exceeds current bounds
+        dayHigh: Math.max(stock.dayHigh, newPrice),
+        dayLow: Math.min(stock.dayLow, newPrice),
       })
     }
 

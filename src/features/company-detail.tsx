@@ -4,15 +4,16 @@ import { ArrowDownIcon, ArrowUpIcon, MinusIcon } from 'lucide-react'
 import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
 import { toast } from 'sonner'
 
+import { StockStats } from '@/components/stock-stats'
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart'
 import { Input } from '@/components/ui/input'
+import { useSimulatedStocks } from '@/hooks/useSimulatedStocks'
 import { useMarketStore } from '@/lib/market-store'
 import { usePortfolioStore } from '@/lib/portfolio-store'
-import { useSimulatedStocks } from '@/hooks/useSimulatedStocks'
 
 interface CompanyDetailProps {
   company: {
@@ -311,6 +312,12 @@ export function CompanyDetail({ company, history }: CompanyDetailProps) {
               </div>
             </div>
           </div>
+
+          <StockStats
+            companyId={String(company.id)}
+            simulatedStock={simulatedStock}
+            currentPrice={currentPrice}
+          />
         </div>
       </div>
     </div>

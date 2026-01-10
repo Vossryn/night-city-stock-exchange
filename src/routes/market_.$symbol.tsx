@@ -21,7 +21,8 @@ export const Route = createFileRoute('/market_/$symbol')({
     const dbCompany = await getCompany({ data: params.symbol })
 
     // Handle case where company is not found in database
-    if (!dbCompany) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (dbCompany == null || !dbCompany.id) {
       throw notFound()
     }
 

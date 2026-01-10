@@ -88,6 +88,26 @@ export async function getMarketHistoryFromDb(
   return pivoted
 }
 
+export async function get52WeekStatsFromDb(companyId: string) {
+  const cutoff = subDays(new Date(), 365)
+
+  const result = await db
+    .select({
+      high: sql<number>`MAX(${stockPrices.price})`,
+      low: sql<number>`MIN(${stockPrices.price})`,
+      avgVolume: sql<number>`COUNT(${stockPrices.id})`, // Number of price points as proxy for "volume"
+    })
+    .from(stockPrices)
+    .where(
+      and(
+        eq(stockPrices.companyId, companyId),
+        gte(stockPrices.timestamp, cutoff),
+      ),
+    )
+
+  return result[0] || { high: 0, low: 0, avgVolume: 0 }
+}
+
 export async function getTopMoversFromDb(limit: number = 5) {
   // Fetch prices from the last 7 days to ensure we have at least 2 data points
   // even if there are gaps or weekends (though the seed data is daily)

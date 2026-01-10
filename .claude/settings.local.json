@@ -15,7 +15,9 @@
       "Bash(node -e:*)",
       "Bash(npm run dev:*)",
       "Bash(git mv:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(tree:*)",
+      "Bash(ls:*)"
     ]
   }
 }

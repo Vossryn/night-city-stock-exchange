@@ -55,7 +55,7 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
     - [x] Validation: Check if User Shares >= Quantity.
     - [x] Execution: Remove shares, add cash to balance.
   - [x] **Order Confirmation:** Displays estimated total cost/payout in real-time before trade execution.
-- [x] **Transaction History:** All trades logged with Date/Time, Symbol, Type, Quantity, Price, Total. (Note: Viewer UI not implemented).
+- [x] **Transaction History:** All trades logged with Date/Time, Symbol, Type, Quantity, Price, Total. Viewer UI available at /transactions.
 
 ### 3.3 Company Information
 
@@ -64,7 +64,7 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 - [x] **Stock Data:**
   - [x] Current Price on detail page with real-time simulated updates.
   - [x] Current Price, Change (%) on market listing cards with up/down/flat indicators.
-  - [ ] Key Stats: Market Cap, Volume, Day High/Low, 52-Week High/Low.
+  - [x] Key Stats: Market Cap, Volume, Day High/Low, 52-Week High/Low.
 - [x] **Interactive Charts:**
   - [x] Line charts with 30-day historical data.
   - [x] Multi-company comparison chart on dashboard (timeframes: 1M, 3M, 6M, 12M).
@@ -98,7 +98,7 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 - [x] **User Profile:**
   - [x] Display user name in navigation.
   - [x] Logout functionality.
-  - [ ] Display user avatar from selected character.
+  - [x] Display user avatar from selected character.
 
 ## 4. Non-Functional Requirements
 
@@ -137,13 +137,13 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 
 ## 6. MVP Remaining Work
 
-The following items are needed to complete the MVP:
+All MVP items have been completed:
 
-- [ ] **Transaction History Viewer:** UI to display logged trades (backend recording exists).
-- [ ] **Daily P/L Tracking:** Implement daily value snapshots for profit/loss calculations.
-- [ ] **Day Return in Portfolio:** Calculate and display daily return per holding.
-- [ ] **User Avatar Display:** Show selected character avatar in navigation.
-- [ ] **Key Stock Stats:** Market Cap, Volume, Day High/Low, 52-Week High/Low.
+- [x] **Transaction History Viewer:** UI to display logged trades at /transactions route.
+- [x] **Daily P/L Tracking:** Implemented via daily-snapshot-store.ts.
+- [x] **Day Return in Portfolio:** Calculated and displayed per holding in portfolio.
+- [x] **User Avatar Display:** Character avatar shown in navigation bar.
+- [x] **Key Stock Stats:** Market Cap, Volume, Day High/Low, 52-Week High/Low displayed on company detail page.
 
 ## 7. Future Scope / Roadmap
 

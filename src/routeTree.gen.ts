@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TransactionsRouteImport } from './routes/transactions'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -16,6 +17,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as MarketIndexRouteImport } from './routes/market.index'
 import { Route as MarketSymbolRouteImport } from './routes/market_.$symbol'
 
+const TransactionsRoute = TransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
   path: '/portfolio',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/portfolio': typeof PortfolioRoute
+  '/transactions': typeof TransactionsRoute
   '/market/$symbol': typeof MarketSymbolRoute
   '/market': typeof MarketIndexRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/portfolio': typeof PortfolioRoute
+  '/transactions': typeof TransactionsRoute
   '/market/$symbol': typeof MarketSymbolRoute
   '/market': typeof MarketIndexRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/portfolio': typeof PortfolioRoute
+  '/transactions': typeof TransactionsRoute
   '/market_/$symbol': typeof MarketSymbolRoute
   '/market/': typeof MarketIndexRoute
 }
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/portfolio'
+    | '/transactions'
     | '/market/$symbol'
     | '/market'
   fileRoutesByTo: FileRoutesByTo
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/portfolio'
+    | '/transactions'
     | '/market/$symbol'
     | '/market'
   id:
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/portfolio'
+    | '/transactions'
     | '/market_/$symbol'
     | '/market/'
   fileRoutesById: FileRoutesById
@@ -104,12 +116,20 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
   PortfolioRoute: typeof PortfolioRoute
+  TransactionsRoute: typeof TransactionsRoute
   MarketSymbolRoute: typeof MarketSymbolRoute
   MarketIndexRoute: typeof MarketIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/transactions': {
+      id: '/transactions'
+      path: '/transactions'
+      fullPath: '/transactions'
+      preLoaderRoute: typeof TransactionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/portfolio': {
       id: '/portfolio'
       path: '/portfolio'
@@ -160,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
   PortfolioRoute: PortfolioRoute,
+  TransactionsRoute: TransactionsRoute,
   MarketSymbolRoute: MarketSymbolRoute,
   MarketIndexRoute: MarketIndexRoute,
 }
