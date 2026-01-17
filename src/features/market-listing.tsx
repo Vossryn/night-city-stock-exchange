@@ -25,7 +25,7 @@ export function MarketListing() {
             <Link
               key={company.name}
               to="/market/$symbol"
-              params={{ symbol: company.name }}
+              params={{ symbol: stockData?.ticker ?? company.name }}
               className="block p-4 border border-gray-700 hover:border-neon-blue transition-colors rounded bg-card"
             >
               <div className="flex items-center gap-3">

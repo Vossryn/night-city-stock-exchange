@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { ArrowDownIcon, ArrowUpIcon, MinusIcon } from 'lucide-react'
 import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
 import { toast } from 'sonner'
 
 import { StockStats } from '@/components/stock-stats'
+import { Button } from '@/components/ui/button'
 import {
   ChartContainer,
   ChartTooltip,
@@ -14,6 +15,15 @@ import { Input } from '@/components/ui/input'
 import { useSimulatedStocks } from '@/hooks/useSimulatedStocks'
 import { useMarketStore } from '@/lib/market-store'
 import { usePortfolioStore } from '@/lib/portfolio-store'
+
+type Timeframe = '1W' | '1M' | '3M' | '1Y'
+
+const TIMEFRAME_DAYS: Record<Timeframe, number> = {
+  '1W': 7,
+  '1M': 30,
+  '3M': 90,
+  '1Y': 365,
+}
 
 interface CompanyDetailProps {
   company: {
@@ -35,7 +45,14 @@ interface CompanyDetailProps {
 export function CompanyDetail({ company, history }: CompanyDetailProps) {
   const [quantity, setQuantity] = useState<string>('1')
   const [isProcessing, setIsProcessing] = useState(false)
+  const [timeframe, setTimeframe] = useState<Timeframe>('1M')
   const queryClient = useQueryClient()
+
+  // Filter history based on selected timeframe
+  const filteredHistory = useMemo(() => {
+    const days = TIMEFRAME_DAYS[timeframe]
+    return history.slice(-days)
+  }, [history, timeframe])
 
   const buyStock = usePortfolioStore((state) => state.buyStock)
   const sellStock = usePortfolioStore((state) => state.sellStock)
@@ -148,12 +165,33 @@ export function CompanyDetail({ company, history }: CompanyDetailProps) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-4">
           <div className="p-6 border border-gray-700 rounded bg-card">
-            <h2 className="text-xl font-semibold mb-4">
-              Price Chart (30 Days)
-            </h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold">
+                Price Chart ({timeframe})
+              </h2>
+              <div className="flex items-center gap-2">
+                {(['1W', '1M', '3M', '1Y'] as Array<Timeframe>).map(
+                  (tf) => (
+                    <Button
+                      key={tf}
+                      variant={timeframe === tf ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setTimeframe(tf)}
+                      className={
+                        timeframe === tf
+                          ? 'bg-cyan-600 hover:bg-cyan-700'
+                          : 'border-cyan-800/50 text-cyan-500 hover:text-neon-blue hover:border-neon-blue'
+                      }
+                    >
+                      {tf}
+                    </Button>
+                  ),
+                )}
+              </div>
+            </div>
             <div className="h-64 w-full">
               <ChartContainer config={chartConfig} className="h-full w-full">
-                <LineChart data={history}>
+                <LineChart data={filteredHistory}>
                   <CartesianGrid
                     vertical={false}
                     stroke="rgba(255,255,255,0.1)"

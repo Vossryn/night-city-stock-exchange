@@ -15,11 +15,13 @@ export interface PriceUpdate {
  *
  * @param currentPrice - Current stock price
  * @param volatility - Base volatility multiplier (default: 1.0)
+ * @param eventModifier - Additional price modifier from active events (default: 0)
  * @returns Updated price and change percentage
  */
 export function calculateNextPrice(
   currentPrice: number,
   volatility: number = 1.0,
+  eventModifier: number = 0,
 ): PriceUpdate {
   // Base volatility: ±0.5% to ±2% per tick (scaled down from seed's daily moves)
   const baseChange = (Math.random() * 0.015 - 0.0075) * volatility
@@ -30,7 +32,8 @@ export function calculateNextPrice(
     spike = (Math.random() * 0.1 - 0.05) * volatility
   }
 
-  const changePercent = baseChange + spike
+  // Apply event modifier to price change
+  const changePercent = baseChange + spike + eventModifier
 
   let newPrice = currentPrice * (1 + changePercent)
 

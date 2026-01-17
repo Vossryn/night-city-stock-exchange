@@ -40,7 +40,7 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 - [x] **Account Snapshot:**
   - [x] Total Net Worth (Cash + Current Value of Holdings) - Fully integrated with portfolio store.
   - [x] Available Buying Power (Cash Balance) - Displays real cash balance from portfolio.
-  - [ ] Daily Profit/Loss (Value and Percentage) - Placeholder, needs daily tracking implementation.
+  - [x] Daily Profit/Loss (Value and Percentage) - Implemented via daily snapshot store.
 
 ### 3.2 Stock Market Mechanics
 
@@ -81,10 +81,10 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
   - [x] Current Price - Real-time from simulated market.
   - [x] Current Value (Quantity \* Current Price) - Calculated in real-time.
   - [x] Total Return ($ and %) - Calculated with color-coded indicators.
-  - [ ] Day Return ($ and %) - Not implemented, needs daily tracking.
-- [ ] **Portfolio Analytics:**
+  - [x] Day Return ($ and %) - Implemented via daily snapshot store.
+- [x] **Portfolio Analytics:**
   - [x] Chart placeholders with cyberpunk styling.
-  - [ ] Visual breakdown of portfolio allocation (Pie chart by Sector or Company).
+  - [x] Visual breakdown of portfolio allocation (Pie chart by Sector or Company).
   - [ ] Historical Portfolio Value chart with actual data.
 
 ### 3.5 Authentication
@@ -148,7 +148,7 @@ All MVP items have been completed:
 ## 7. Future Scope / Roadmap
 
 - [ ] **Leaderboards:** Global rankings based on net worth (requires backend).
-- [ ] **Events System:** Random events (e.g., "Corporate War", "Data Leak") that drastically affect specific sectors.
+- [x] **Events System:** Random events (e.g., "Corporate War", "Data Leak") that affect specific sectors - Implemented with event generation and market impact.
 - [ ] **Margin Trading:** Ability to borrow money to trade (leverage).
 - [ ] **Options Trading:** Calls and Puts for advanced speculation.
 - [ ] **Save Import/Export:** Ability to export save string to transfer progress between devices.

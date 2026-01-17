@@ -25,6 +25,27 @@ export async function getCompanyByName(name: string) {
   return result[0]
 }
 
+export async function getCompanyByTicker(ticker: string) {
+  const result = await db
+    .select({
+      id: companies.id,
+      name: companies.name,
+      ticker: companies.ticker,
+      sector: companies.sector,
+      description: companies.description,
+      logoUrl: companies.logoUrl,
+      price: stockPrices.price,
+      timestamp: stockPrices.timestamp,
+    })
+    .from(companies)
+    .leftJoin(stockPrices, eq(companies.id, stockPrices.companyId))
+    .where(eq(companies.ticker, ticker))
+    .orderBy(desc(stockPrices.timestamp))
+    .limit(1)
+
+  return result[0]
+}
+
 export async function getActiveStocksFromDb() {
   const result = await db
     .select({

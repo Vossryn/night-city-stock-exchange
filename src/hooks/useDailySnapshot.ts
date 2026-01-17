@@ -26,6 +26,9 @@ export function useDailySnapshotInit() {
     (state) => state.captureSnapshot,
   )
   const hasSnapshot = useDailySnapshotStore((state) => state.hasSnapshot)
+  const isSnapshotStale = useDailySnapshotStore(
+    (state) => state.isSnapshotStale,
+  )
 
   // Load user's snapshot when they log in
   useEffect(() => {
@@ -45,9 +48,9 @@ export function useDailySnapshotInit() {
     )
   }, [simulatedStocks])
 
-  // Capture snapshot when market initializes and no snapshot exists
+  // Capture snapshot when market initializes and no snapshot exists or snapshot is stale
   useEffect(() => {
-    if (isInitialized && user?.id && !hasSnapshot()) {
+    if (isInitialized && user?.id && (!hasSnapshot() || isSnapshotStale())) {
       const portfolioValue = getTotalValue(currentPrices)
       captureSnapshot(portfolioValue, currentPrices)
     }
@@ -55,6 +58,7 @@ export function useDailySnapshotInit() {
     isInitialized,
     user?.id,
     hasSnapshot,
+    isSnapshotStale,
     getTotalValue,
     currentPrices,
     captureSnapshot,

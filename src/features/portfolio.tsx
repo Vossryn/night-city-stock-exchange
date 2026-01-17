@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { ArrowDownIcon, ArrowUpIcon } from 'lucide-react'
 
+import { PortfolioPieChart } from '@/components/portfolio-pie-chart'
+import { usePortfolioAllocation } from '@/hooks/usePortfolioAnalytics'
 import { useSimulatedStocks } from '@/hooks/useSimulatedStocks'
 import { useDailySnapshotStore } from '@/lib/daily-snapshot-store'
 import {
@@ -19,6 +21,7 @@ export function Portfolio() {
   const getStockPriceAtStart = useDailySnapshotStore(
     (state) => state.getStockPriceAtStart,
   )
+  const allocationData = usePortfolioAllocation()
 
   const holdingsArray = Object.entries(holdings).map(([symbol, holding]) => ({
     symbol,
@@ -33,6 +36,17 @@ export function Portfolio() {
         return acc
       },
       {} as Record<string, number>,
+    )
+  }, [simulatedStocks])
+
+  // Create ticker to name map for displaying company names
+  const companyNames = useMemo(() => {
+    return simulatedStocks.reduce(
+      (acc, stock) => {
+        acc[stock.ticker] = stock.name
+        return acc
+      },
+      {} as Record<string, string>,
     )
   }, [simulatedStocks])
 
@@ -91,6 +105,11 @@ export function Portfolio() {
         </div>
       </div>
 
+      <PortfolioPieChart
+        data={allocationData}
+        title="Portfolio Allocation by Sector"
+      />
+
       <div className="border border-gray-700 rounded overflow-hidden">
         <table className="w-full text-left">
           <thead className="bg-gray-800">
@@ -129,7 +148,9 @@ export function Portfolio() {
                     <td className="p-3 font-mono font-bold text-cyan-400">
                       {holding.symbol}
                     </td>
-                    <td className="p-3 text-gray-300">{holding.symbol}</td>
+                    <td className="p-3 text-gray-300">
+                      {companyNames[holding.symbol] || holding.symbol}
+                    </td>
                     <td className="p-3 text-right font-mono">
                       {holding.quantity}
                     </td>

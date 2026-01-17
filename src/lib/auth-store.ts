@@ -7,8 +7,8 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
-import type { DemoUser } from '@/lib/mock-auth'
-import { DEMO_USERS } from '@/lib/mock-auth'
+import type { DemoUser } from '@/lib/demo-users'
+import { DEMO_USERS } from '@/lib/demo-users'
 
 const STORAGE_KEY = 'ncse-demo-user'
 

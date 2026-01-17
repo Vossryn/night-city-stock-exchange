@@ -17,7 +17,7 @@ export const Route = createFileRoute('/market_/$symbol')({
     }
   },
   loader: async ({ params }) => {
-    // Load company data
+    // Load company data by ticker
     const dbCompany = await getCompany({ data: params.symbol })
 
     // Handle case where company is not found in database
@@ -27,10 +27,11 @@ export const Route = createFileRoute('/market_/$symbol')({
     }
 
     const history = await getMarketHistory({
-      data: { days: 30, companyIds: [dbCompany.id] },
+      data: { days: 365, companyIds: [dbCompany.id] },
     })
 
-    const staticCompany = company_data.find((c) => c.name === params.symbol)
+    // Match static company data by name (from database result)
+    const staticCompany = company_data.find((c) => c.name === dbCompany.name)
 
     return {
       company: {

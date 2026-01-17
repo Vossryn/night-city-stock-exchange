@@ -2,6 +2,7 @@ import { useNavigate } from '@tanstack/react-router'
 
 import { useAuthStore } from '@/lib/auth-store'
 import { useDailySnapshotStore } from '@/lib/daily-snapshot-store'
+import { mockAuth } from '@/lib/mock-auth'
 import { usePortfolioStore } from '@/lib/portfolio-store'
 
 /**
@@ -25,12 +26,11 @@ export function useCurrentUser() {
  */
 export function useLogout() {
   const navigate = useNavigate()
-  const authLogout = useAuthStore((state) => state.logout)
   const clearPortfolio = usePortfolioStore((state) => state.clearPortfolio)
   const clearSnapshot = useDailySnapshotStore((state) => state.clearSnapshot)
 
   const logout = () => {
-    authLogout()
+    mockAuth.logout()
     clearPortfolio()
     clearSnapshot()
     navigate({ to: '/login' })

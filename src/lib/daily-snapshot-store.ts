@@ -28,6 +28,7 @@ interface DailySnapshotState {
   loadUserSnapshot: (userId: string) => void
   clearSnapshot: () => void
   hasSnapshot: () => boolean
+  isSnapshotStale: () => boolean
 }
 
 const DEFAULT_STATE = {
@@ -138,6 +139,19 @@ export const useDailySnapshotStore = create<DailySnapshotState>()(
        */
       hasSnapshot: (): boolean => {
         return get().currentDaySnapshot !== null
+      },
+
+      /**
+       * Check if the current snapshot is stale (from a previous calendar day)
+       * Returns true if snapshot should be recaptured
+       */
+      isSnapshotStale: (): boolean => {
+        const snapshot = get().currentDaySnapshot
+        if (!snapshot) return true
+
+        const snapshotDate = new Date(snapshot.snapshotTimestamp)
+        const today = new Date()
+        return snapshotDate.toDateString() !== today.toDateString()
       },
     }),
     {

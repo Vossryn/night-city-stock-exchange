@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 
+import { useEventsStore } from './events-store'
 import { calculateNextPrice, getVolatilityBySector } from './price-simulation'
 
 /**
@@ -124,10 +125,17 @@ export const useMarketStore = create<MarketState>((set, get) => ({
 
     const updatedStocks = new Map(state.stocks)
 
+    // Get event modifier function from events store
+    const getEventModifier = useEventsStore.getState().getEventModifier
+
     for (const [id, stock] of updatedStocks) {
+      // Get event modifier for this stock's sector
+      const eventModifier = getEventModifier(stock.sector)
+
       const priceUpdate = calculateNextPrice(
         stock.currentPrice,
         stock.volatility,
+        eventModifier,
       )
 
       const newPrice = priceUpdate.price

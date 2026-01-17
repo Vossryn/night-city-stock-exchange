@@ -1,4 +1,3 @@
-import { useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -8,7 +7,6 @@ import { DEMO_USERS } from '@/lib/mock-auth'
 import { usePortfolioStore } from '@/lib/portfolio-store'
 
 export function Login() {
-  const navigate = useNavigate()
   const [selectedUser, setSelectedUser] = useState<string | null>(null)
   const login = useAuthStore((state) => state.login)
   const loadUserPortfolio = usePortfolioStore(
@@ -21,10 +19,11 @@ export function Login() {
       // Load the user's portfolio
       loadUserPortfolio(user.id)
 
-      // Get redirect URL from search params
+      // Get redirect URL from search params and navigate
       const params = new URLSearchParams(window.location.search)
       const redirectUrl = params.get('redirect') || '/dashboard'
-      navigate({ to: redirectUrl as '/' })
+      // Use window.location for redirect URLs to handle any valid path
+      window.location.href = redirectUrl
     }
   }
 
@@ -39,7 +38,7 @@ export function Login() {
             SELECT YOUR NETRUNNER IDENTITY
           </p>
           <div className="mt-4 inline-block px-4 py-2 bg-neon-blue/10 border border-neon-blue rounded text-neon-blue text-xs">
-            🎮 DEMO MODE - No real authentication required
+            DEMO MODE - No real authentication required
           </div>
         </div>
 
@@ -57,7 +56,7 @@ export function Login() {
               <div className="flex flex-col items-center text-center space-y-3">
                 <img
                   alt={user.name}
-                  className="w-24 h-24 rounded-full border-2 border-neon-blue"
+                  className="w-24 h-24 rounded-full border-2 border-neon-blue object-cover"
                   src={user.avatar}
                 />
                 <div>

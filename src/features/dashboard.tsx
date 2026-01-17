@@ -3,6 +3,7 @@ import { ArrowDownIcon, ArrowUpIcon, MinusIcon } from 'lucide-react'
 
 import { ActiveStocksChart } from '@/components/active-stocks-chart'
 import { MarketControls } from '@/components/market-controls'
+import { MarketEvents } from '@/components/market-events'
 import { useDailyPL } from '@/hooks/useDailySnapshot'
 import { useGetTopMover } from '@/hooks/useGetTopMover'
 import { useMarketStats, useSimulatedStocks } from '@/hooks/useSimulatedStocks'
@@ -143,6 +144,7 @@ export function Dashboard() {
           )}
         </div>
       </div>
+      <MarketEvents />
       <ActiveStocksChart />
     </div>
   )

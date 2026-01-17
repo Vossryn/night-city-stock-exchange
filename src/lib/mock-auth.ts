@@ -1,110 +1,51 @@
 /**
  * Mock Authentication System for Demo
- * No real auth, no database, no OAuth - just themed character selection!
+ * Thin facade over useAuthStore - ensures single source of truth
+ *
+ * This module re-exports types and provides a simple API for:
+ * - Route guards (synchronous checks via getState())
+ * - Legacy compatibility with existing code
  */
 
-export interface DemoUser {
-  id: string
-  name: string
-  email: string
-  avatar: string
-  role: string
-  affiliation: string
-}
+// Re-export types and data for backwards compatibility
+import type { DemoUser } from '@/lib/demo-users'
+import { DEMO_USERS } from '@/lib/demo-users'
+import { useAuthStore } from '@/lib/auth-store'
 
-export const DEMO_USERS: Array<DemoUser> = [
-  {
-    id: '1',
-    name: 'V',
-    email: 'v@nightcity.net',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=V',
-    role: 'Netrunner',
-    affiliation: 'Independent',
-  },
-  {
-    id: '2',
-    name: 'Johnny Silverhand',
-    email: 'johnny@samurai.net',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Johnny',
-    role: 'Rockerboy',
-    affiliation: 'Samurai',
-  },
-  {
-    id: '3',
-    name: 'Judy Alvarez',
-    email: 'judy@moxes.net',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Judy',
-    role: 'Braindance Technician',
-    affiliation: 'Moxes',
-  },
-  {
-    id: '4',
-    name: 'Panam Palmer',
-    email: 'panam@aldecaldos.net',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Panam',
-    role: 'Nomad',
-    affiliation: 'Aldecaldos',
-  },
-  {
-    id: '5',
-    name: 'River Ward',
-    email: 'river@ncpd.gov',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=River',
-    role: 'Ex-NCPD Detective',
-    affiliation: 'NCPD',
-  },
-  {
-    id: '6',
-    name: 'Takemura Goro',
-    email: 'takemura@arasaka.corp',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Takemura',
-    role: 'Bodyguard',
-    affiliation: 'Arasaka',
-  },
-]
-
-const STORAGE_KEY = 'ncse-demo-user'
+export type { DemoUser } from '@/lib/demo-users'
+export { DEMO_USERS } from '@/lib/demo-users'
 
 export const mockAuth = {
   /**
    * Login with a demo user by ID
+   * Delegates to useAuthStore for single source of truth
    */
   login: (userId: string): DemoUser | null => {
-    const user = DEMO_USERS.find((u) => u.id === userId)
-    if (user) {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(user))
-      }
-      return user
-    }
-    return null
+    return useAuthStore.getState().login(userId)
   },
 
   /**
    * Logout current user
+   * Delegates to useAuthStore for single source of truth
    */
   logout: (): void => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem(STORAGE_KEY)
-    }
+    useAuthStore.getState().logout()
   },
 
   /**
    * Get currently logged in user
+   * Reads directly from useAuthStore state
    */
   getCurrentUser: (): DemoUser | null => {
-    if (typeof window === 'undefined') {
-      return null
-    }
-    const stored = localStorage.getItem(STORAGE_KEY)
-    return stored ? JSON.parse(stored) : null
+    return useAuthStore.getState().user
   },
 
   /**
    * Check if user is authenticated
+   * Reads directly from useAuthStore state
    */
   isAuthenticated: (): boolean => {
-    return mockAuth.getCurrentUser() !== null
+    return useAuthStore.getState().isAuthenticated
   },
 
   /**

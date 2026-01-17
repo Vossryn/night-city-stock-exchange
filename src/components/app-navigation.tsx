@@ -49,7 +49,7 @@ export function AppNavigation() {
                   <img
                     src={user.avatar}
                     alt={user.name}
-                    className="w-8 h-8 rounded-full border-2 border-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]"
+                    className="w-8 h-8 rounded-full border-2 border-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)] object-cover"
                   />
                 )}
                 <span className="text-xs text-cyan-600 hidden md:inline-block">

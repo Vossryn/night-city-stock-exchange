@@ -81,7 +81,7 @@ export function ActiveStocksChart() {
             <CardDescription>Loading market data...</CardDescription>
           </div>
         </CardHeader>
-        <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6 flex items-center justify-center h-62.5">
+        <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6 flex items-center justify-center h-64">
           <div className="text-cyan-500/50 font-mono animate-pulse">
             INITIALIZING DATA STREAM...
           </div>
@@ -106,7 +106,7 @@ export function ActiveStocksChart() {
               key={range}
               variant={timeRange === range ? 'default' : 'outline'}
               size="sm"
-              onClick={() => setTimeRange(range as any)}
+              onClick={() => setTimeRange(range as '12m' | '6m' | '3m' | '1m')}
               className={
                 timeRange === range
                   ? 'bg-cyan-600 hover:bg-cyan-700'
@@ -121,7 +121,7 @@ export function ActiveStocksChart() {
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-62.5 w-full"
+          className="aspect-auto h-64 w-full"
         >
           <LineChart data={historyData}>
             <CartesianGrid vertical={false} stroke="rgba(6,182,212,0.1)" />
