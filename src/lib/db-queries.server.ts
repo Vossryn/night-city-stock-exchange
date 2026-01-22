@@ -4,6 +4,22 @@ import { and, desc, eq, gte, inArray, sql } from 'drizzle-orm'
 import { db } from '@/db'
 import { companies, stockPrices } from '@/db/schema'
 
+/**
+ * Get the latest market date from the database.
+ * This is used as the reference point for all date-based queries,
+ * making the system year-agnostic - it works based on the data present,
+ * not the current calendar date.
+ */
+export async function getLatestMarketDate(): Promise<Date> {
+  const result = await db
+    .select({ maxDate: sql<Date | null>`MAX(${stockPrices.timestamp})` })
+    .from(stockPrices)
+
+  // If no data, fall back to current date
+  const maxDate = result[0]?.maxDate
+  return maxDate ?? new Date()
+}
+
 export async function getCompanyByName(name: string) {
   const result = await db
     .select({
@@ -74,7 +90,10 @@ export async function getMarketHistoryFromDb(
   days: number,
   companyIds?: Array<string>,
 ) {
-  const cutoff = subDays(new Date(), days)
+  // Use the latest market date as reference, not current calendar date
+  // This makes the system year-agnostic
+  const marketDate = await getLatestMarketDate()
+  const cutoff = subDays(marketDate, days)
 
   const conditions = [gte(stockPrices.timestamp, cutoff)]
   if (companyIds && companyIds.length > 0) {
@@ -110,7 +129,9 @@ export async function getMarketHistoryFromDb(
 }
 
 export async function get52WeekStatsFromDb(companyId: string) {
-  const cutoff = subDays(new Date(), 365)
+  // Use the latest market date as reference, not current calendar date
+  const marketDate = await getLatestMarketDate()
+  const cutoff = subDays(marketDate, 365)
 
   const result = await db
     .select({
@@ -132,7 +153,9 @@ export async function get52WeekStatsFromDb(companyId: string) {
 export async function getTopMoversFromDb(limit: number = 5) {
   // Fetch prices from the last 7 days to ensure we have at least 2 data points
   // even if there are gaps or weekends (though the seed data is daily)
-  const cutoff = subDays(new Date(), 7)
+  // Use the latest market date as reference, not current calendar date
+  const marketDate = await getLatestMarketDate()
+  const cutoff = subDays(marketDate, 7)
 
   const recentPrices = await db
     .select({

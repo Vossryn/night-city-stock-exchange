@@ -4,6 +4,7 @@ import { ArrowDownIcon, ArrowUpIcon, MinusIcon } from 'lucide-react'
 import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
 import { toast } from 'sonner'
 
+import { CompanyLogo } from '@/components/company-logo'
 import { StockStats } from '@/components/stock-stats'
 import { Button } from '@/components/ui/button'
 import {
@@ -149,13 +150,12 @@ export function CompanyDetail({ company, history }: CompanyDetailProps) {
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4">
-        {company.image && (
-          <img
-            src={company.image}
-            alt={company.name}
-            className="w-20 h-20 object-contain"
-          />
-        )}
+        <CompanyLogo
+          image={company.image}
+          name={company.name}
+          types={company.type}
+          size="lg"
+        />
         <div>
           <h1 className="text-4xl font-bold text-cyan-500">{company.name}</h1>
           <p className="text-xl text-gray-400">{company.type.join(', ')}</p>
@@ -170,23 +170,21 @@ export function CompanyDetail({ company, history }: CompanyDetailProps) {
                 Price Chart ({timeframe})
               </h2>
               <div className="flex items-center gap-2">
-                {(['1W', '1M', '3M', '1Y'] as Array<Timeframe>).map(
-                  (tf) => (
-                    <Button
-                      key={tf}
-                      variant={timeframe === tf ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setTimeframe(tf)}
-                      className={
-                        timeframe === tf
-                          ? 'bg-cyan-600 hover:bg-cyan-700'
-                          : 'border-cyan-800/50 text-cyan-500 hover:text-neon-blue hover:border-neon-blue'
-                      }
-                    >
-                      {tf}
-                    </Button>
-                  ),
-                )}
+                {(['1W', '1M', '3M', '1Y'] as Array<Timeframe>).map((tf) => (
+                  <Button
+                    key={tf}
+                    variant={timeframe === tf ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setTimeframe(tf)}
+                    className={
+                      timeframe === tf
+                        ? 'bg-cyan-600 hover:bg-cyan-700'
+                        : 'border-cyan-800/50 text-cyan-500 hover:text-neon-blue hover:border-neon-blue'
+                    }
+                  >
+                    {tf}
+                  </Button>
+                ))}
               </div>
             </div>
             <div className="h-64 w-full">
@@ -210,7 +208,26 @@ export function CompanyDetail({ company, history }: CompanyDetailProps) {
                       })
                     }}
                   />
-                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <ChartTooltip
+                    content={
+                      <ChartTooltipContent
+                        labelFormatter={(value) => {
+                          const date = new Date(value)
+                          // Use current year for display (year-agnostic)
+                          const displayDate = new Date(
+                            new Date().getFullYear(),
+                            date.getMonth(),
+                            date.getDate(),
+                          )
+                          return displayDate.toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric',
+                          })
+                        }}
+                      />
+                    }
+                  />
                   <Line
                     dataKey={company.name}
                     type="monotone"

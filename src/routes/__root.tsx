@@ -17,6 +17,7 @@ import { AppNavigation } from '@/components/app-navigation'
 import { TerminalLayout } from '@/components/terminal-layout'
 import { Toaster } from '@/components/ui/sonner'
 import { useDailySnapshotInit } from '@/hooks/useDailySnapshot'
+import { usePortfolioHistoryCapture } from '@/hooks/usePortfolioHistoryCapture'
 import { useEventGenerator } from '@/hooks/useEventGenerator'
 import { useMarketSimulation } from '@/hooks/useMarketSimulation'
 import { mockAuth } from '@/lib/mock-auth'
@@ -77,6 +78,9 @@ function AppContent() {
 
   // Initialize daily snapshot tracking (captures "start of day" prices)
   useDailySnapshotInit()
+
+  // Initialize portfolio history tracking (captures daily snapshots for chart)
+  usePortfolioHistoryCapture()
 
   // Initialize event generator (triggers random market events)
   useEventGenerator()

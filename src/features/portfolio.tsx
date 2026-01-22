@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { ArrowDownIcon, ArrowUpIcon } from 'lucide-react'
 
 import { PortfolioPieChart } from '@/components/portfolio-pie-chart'
+import { PortfolioValueChart } from '@/components/portfolio-value-chart'
 import { usePortfolioAllocation } from '@/hooks/usePortfolioAnalytics'
 import { useSimulatedStocks } from '@/hooks/useSimulatedStocks'
 import { useDailySnapshotStore } from '@/lib/daily-snapshot-store'
@@ -109,6 +110,8 @@ export function Portfolio() {
         data={allocationData}
         title="Portfolio Allocation by Sector"
       />
+
+      <PortfolioValueChart />
 
       <div className="border border-gray-700 rounded overflow-hidden">
         <table className="w-full text-left">

@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { format, setYear } from 'date-fns'
 import { ArrowDownIcon, ArrowUpIcon, HistoryIcon } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 
@@ -100,7 +100,13 @@ export function TransactionHistory() {
                     className="border-t border-gray-700 hover:bg-gray-800/50 transition-colors"
                   >
                     <td className="p-3 font-mono text-sm text-gray-400">
-                      {format(new Date(tx.timestamp), 'MMM dd, yyyy HH:mm:ss')}
+                      {format(
+                        setYear(
+                          new Date(tx.timestamp),
+                          new Date().getFullYear(),
+                        ),
+                        'MMM dd, yyyy HH:mm:ss',
+                      )}
                     </td>
                     <td className="p-3">
                       <span

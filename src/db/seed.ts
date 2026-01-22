@@ -1,4 +1,4 @@
-import { addMinutes, subDays } from 'date-fns'
+import { addDays } from 'date-fns'
 import { eq } from 'drizzle-orm'
 
 import { companies, stockPrices } from './schema'
@@ -6,18 +6,27 @@ import { db } from './index'
 import { company_data_seed } from '@/lib/company-data-seed'
 
 // Helper to generate a random walk price history with trends and volatility
-function generatePriceHistory(startPrice: number, days: number) {
+// Generates data from January 1 to December 31 of the current year
+function generatePriceHistory(startPrice: number) {
   const history = []
   let currentPrice = startPrice
-  const now = new Date()
-  const startDate = subDays(now, days)
+
+  // Use current year for the data range (Jan 1 - Dec 31)
+  const year = new Date().getFullYear()
+  const startDate = new Date(year, 0, 1) // January 1
+  const endDate = new Date(year, 11, 31) // December 31
+
+  // Calculate number of days in the year
+  const days = Math.floor(
+    (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
+  )
 
   // Trend parameters
   let currentTrend = 0 // Daily percentage change due to trend
   let trendDuration = 0 // How many days the current trend lasts
 
   for (let i = 0; i <= days; i++) {
-    const date = addMinutes(startDate, i * 24 * 60) // Add 1 day
+    const date = addDays(startDate, i)
 
     // Update trend if duration expired
     if (trendDuration <= 0) {
@@ -95,7 +104,7 @@ async function seed() {
     // 2. Seed Stock Prices for this company
     // Generate a random starting price between 50 and 500
     const startPrice = Math.floor(Math.random() * 450) + 50
-    const history = generatePriceHistory(startPrice, 365)
+    const history = generatePriceHistory(startPrice)
 
     const priceRecords = history.map((h) => ({
       companyId: companyId,

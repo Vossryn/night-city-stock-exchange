@@ -85,7 +85,7 @@ The Night City Stock Exchange (NCSE) is a single-player stock market simulation 
 - [x] **Portfolio Analytics:**
   - [x] Chart placeholders with cyberpunk styling.
   - [x] Visual breakdown of portfolio allocation (Pie chart by Sector or Company).
-  - [ ] Historical Portfolio Value chart with actual data.
+  - [x] Historical Portfolio Value chart with actual data (7D/14D/30D timeframes, daily snapshots).
 
 ### 3.5 Authentication
 

@@ -45,7 +45,7 @@ import zetatechLogo from '@/assets/company_logos/Zetatech.png'
 
 export interface ICompanyData {
   name: string
-  image: any
+  image: string
   type: Array<string>
   known_affiliations: Array<string>
   current_share_value: number

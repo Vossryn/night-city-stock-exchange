@@ -1,6 +1,7 @@
 import { ArrowDownIcon, ArrowUpIcon, MinusIcon } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 
+import { CompanyLogo } from '@/components/company-logo'
 import { company_data } from '@/lib/company-data'
 import { useSimulatedStocks } from '@/hooks/useSimulatedStocks'
 import { useMarketStore } from '@/lib/market-store'
@@ -29,10 +30,11 @@ export function MarketListing() {
               className="block p-4 border border-gray-700 hover:border-neon-blue transition-colors rounded bg-card"
             >
               <div className="flex items-center gap-3">
-                <img
-                  src={company.image}
-                  alt={company.name}
-                  className="w-12 h-12 object-contain"
+                <CompanyLogo
+                  image={company.image}
+                  name={company.name}
+                  types={company.type}
+                  size="md"
                 />
                 <div className="flex-1">
                   <h3 className="font-bold">{company.name}</h3>

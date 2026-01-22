@@ -150,7 +150,14 @@ export function ActiveStocksChart() {
               content={
                 <ChartTooltipContent
                   labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString('en-US', {
+                    const date = new Date(value)
+                    // Use current year for display (year-agnostic)
+                    const displayDate = new Date(
+                      new Date().getFullYear(),
+                      date.getMonth(),
+                      date.getDate(),
+                    )
+                    return displayDate.toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',
                       year: 'numeric',
