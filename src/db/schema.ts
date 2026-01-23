@@ -20,7 +20,11 @@ export const stockPrices = sqliteTable('stock_prices', {
   companyId: text('company_id')
     .notNull()
     .references(() => companies.id),
-  price: real('price').notNull(),
+  price: real('price').notNull(), // Keep for backwards compatibility (= close)
+  open: real('open').notNull(),
+  high: real('high').notNull(),
+  low: real('low').notNull(),
+  close: real('close').notNull(),
   timestamp: integer('timestamp', { mode: 'timestamp' }).notNull(),
 })
 

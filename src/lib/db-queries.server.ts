@@ -1,4 +1,4 @@
-import { subDays } from 'date-fns'
+import { format, startOfMonth, startOfWeek, subDays } from 'date-fns'
 import { and, desc, eq, gte, inArray, sql } from 'drizzle-orm'
 
 import { db } from '@/db'
@@ -226,4 +226,121 @@ export async function getTopMoversFromDb(limit: number = 5) {
     .slice(0, limit)
 
   return movers
+}
+
+export type OHLCDataPoint = {
+  date: string
+  open: number
+  high: number
+  low: number
+  close: number
+}
+
+export type AggregationPeriod = 'daily' | 'weekly' | 'monthly'
+
+/**
+ * Get raw daily OHLC data for a specific company
+ */
+export async function getOHLCHistoryFromDb(
+  days: number,
+  companyId: string,
+): Promise<Array<OHLCDataPoint>> {
+  const marketDate = await getLatestMarketDate()
+  const cutoff = subDays(marketDate, days)
+
+  const result = await db
+    .select({
+      open: stockPrices.open,
+      high: stockPrices.high,
+      low: stockPrices.low,
+      close: stockPrices.close,
+      timestamp: stockPrices.timestamp,
+    })
+    .from(stockPrices)
+    .where(
+      and(
+        eq(stockPrices.companyId, companyId),
+        gte(stockPrices.timestamp, cutoff),
+      ),
+    )
+    .orderBy(stockPrices.timestamp)
+
+  return result.map((row) => ({
+    date: row.timestamp.toISOString().split('T')[0],
+    open: row.open,
+    high: row.high,
+    low: row.low,
+    close: row.close,
+  }))
+}
+
+/**
+ * Get OHLC data with optional aggregation to weekly or monthly candles
+ * - 1W, 1M: Daily candles (no aggregation)
+ * - 3M: Weekly candles (7-day groups)
+ * - 1Y: Monthly candles (30-day groups)
+ */
+export async function getAggregatedOHLCFromDb(
+  days: number,
+  companyId: string,
+  period: AggregationPeriod = 'daily',
+): Promise<Array<OHLCDataPoint>> {
+  const rawData = await getOHLCHistoryFromDb(days, companyId)
+
+  if (period === 'daily') {
+    return rawData
+  }
+
+  // Group data by period
+  const grouped = new Map<string, Array<OHLCDataPoint>>()
+
+  for (const point of rawData) {
+    const date = new Date(point.date)
+    let periodKey: string
+
+    if (period === 'weekly') {
+      // Group by week start (Monday)
+      const weekStart = startOfWeek(date, { weekStartsOn: 1 })
+      periodKey = format(weekStart, 'yyyy-MM-dd')
+    } else {
+      // Group by month start
+      const monthStart = startOfMonth(date)
+      periodKey = format(monthStart, 'yyyy-MM-dd')
+    }
+
+    if (!grouped.has(periodKey)) {
+      grouped.set(periodKey, [])
+    }
+    grouped.get(periodKey)!.push(point)
+  }
+
+  // Aggregate each group into a single OHLC candle
+  const aggregated: Array<OHLCDataPoint> = []
+
+  for (const [periodKey, points] of grouped) {
+    if (points.length === 0) continue
+
+    // Open: First candle's open
+    const open = points[0].open
+
+    // Close: Last candle's close
+    const close = points[points.length - 1].close
+
+    // High: Maximum high across all candles
+    const high = Math.max(...points.map((p) => p.high))
+
+    // Low: Minimum low across all candles
+    const low = Math.min(...points.map((p) => p.low))
+
+    aggregated.push({
+      date: periodKey,
+      open,
+      high,
+      low,
+      close,
+    })
+  }
+
+  // Sort by date ascending
+  return aggregated.sort((a, b) => a.date.localeCompare(b.date))
 }

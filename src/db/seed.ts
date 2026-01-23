@@ -5,11 +5,17 @@ import { companies, stockPrices } from './schema'
 import { db } from './index'
 import { company_data_seed } from '@/lib/company-data-seed'
 
-// Helper to generate a random walk price history with trends and volatility
+// Helper to generate OHLC price history with trends and volatility
 // Generates data from January 1 to December 31 of the current year
 function generatePriceHistory(startPrice: number) {
-  const history = []
-  let currentPrice = startPrice
+  const history: Array<{
+    open: number
+    high: number
+    low: number
+    close: number
+    timestamp: Date
+  }> = []
+  let previousClose = startPrice
 
   // Use current year for the data range (Jan 1 - Dec 31)
   const year = new Date().getFullYear()
@@ -37,7 +43,36 @@ function generatePriceHistory(startPrice: number) {
     }
     trendDuration--
 
-    // Daily volatility (noise): -10% to +10%
+    // Open: Previous close with small gap (-1% to +1%)
+    const gapPercent = Math.random() * 0.02 - 0.01
+    let open = previousClose * (1 + gapPercent)
+
+    // Simulate intraday price movements (10-20 steps)
+    const intradaySteps = Math.floor(Math.random() * 11) + 10
+    let currentPrice = open
+    let high = open
+    let low = open
+
+    for (let step = 0; step < intradaySteps; step++) {
+      // Intraday volatility: -5% to +5% per step
+      let stepChange = Math.random() * 0.1 - 0.05
+
+      // Add trend influence (smaller per step)
+      stepChange += currentTrend / intradaySteps
+
+      // Occasional intraday spike (10% chance)
+      if (Math.random() < 0.1) {
+        stepChange += Math.random() * 0.1 - 0.05
+      }
+
+      currentPrice = currentPrice * (1 + stepChange)
+
+      // Track high and low
+      if (currentPrice > high) high = currentPrice
+      if (currentPrice < low) low = currentPrice
+    }
+
+    // Daily volatility for final close: -10% to +10% from current
     let noise = Math.random() * 0.2 - 0.1
 
     // Occasional market shock (5% chance)
@@ -45,18 +80,32 @@ function generatePriceHistory(startPrice: number) {
       noise += Math.random() * 0.6 - 0.3 // +/- 30% shock
     }
 
-    // Combined change
-    const changePercent = currentTrend + noise
+    // Close: Apply final adjustment
+    const close = currentPrice * (1 + noise * 0.1)
 
-    currentPrice = currentPrice * (1 + changePercent)
+    // Update high/low to include close
+    if (close > high) high = close
+    if (close < low) low = close
 
-    // Ensure price doesn't go below 1
-    if (currentPrice < 1) currentPrice = 1
+    // Ensure constraints: high >= max(open, close), low <= min(open, close)
+    high = Math.max(high, open, close)
+    low = Math.min(low, open, close)
+
+    // Ensure prices don't go below 1
+    open = Math.max(open, 1)
+    high = Math.max(high, 1)
+    low = Math.max(low, 1)
+    const finalClose = Math.max(close, 1)
 
     history.push({
-      price: parseFloat(currentPrice.toFixed(2)),
+      open: parseFloat(open.toFixed(2)),
+      high: parseFloat(high.toFixed(2)),
+      low: parseFloat(low.toFixed(2)),
+      close: parseFloat(finalClose.toFixed(2)),
       timestamp: date,
     })
+
+    previousClose = finalClose
   }
   return history
 }
@@ -108,7 +157,11 @@ async function seed() {
 
     const priceRecords = history.map((h) => ({
       companyId: companyId,
-      price: h.price,
+      price: h.close, // Keep for backwards compatibility
+      open: h.open,
+      high: h.high,
+      low: h.low,
+      close: h.close,
       timestamp: h.timestamp,
     }))
 

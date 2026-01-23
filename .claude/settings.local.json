@@ -20,7 +20,15 @@
       "Bash(ls:*)",
       "Bash(npx tsc:*)",
       "Bash(timeout:*)",
-      "Bash(dir \"C:\\\\projects\\\\night-city-stock-exchange\\\\public\\\\images\")"
+      "Bash(dir \"C:\\\\projects\\\\night-city-stock-exchange\\\\public\\\\images\")",
+      "Bash(npm test:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(npx drizzle-kit generate)",
+      "Bash(npx drizzle-kit:*)",
+      "Bash(Remove-Item sqlite.db -Force -ErrorAction SilentlyContinue)",
+      "Bash(del /f sqlite.db)",
+      "Bash(cmd /c \"del /f sqlite.db\")"
     ]
   }
 }

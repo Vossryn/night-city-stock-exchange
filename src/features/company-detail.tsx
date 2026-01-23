@@ -1,9 +1,17 @@
 import { useMemo, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
-import { ArrowDownIcon, ArrowUpIcon, MinusIcon } from 'lucide-react'
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  CandlestickChartIcon,
+  LineChartIcon,
+  MinusIcon,
+} from 'lucide-react'
 import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
 import { toast } from 'sonner'
 
+import type { AggregationPeriod } from '@/lib/db-queries.server'
+import { CandlestickChart } from '@/components/candlestick-chart'
 import { CompanyLogo } from '@/components/company-logo'
 import { StockStats } from '@/components/stock-stats'
 import { Button } from '@/components/ui/button'
@@ -13,17 +21,30 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart'
 import { Input } from '@/components/ui/input'
+import { useOHLCHistory } from '@/hooks/useOHLCHistory'
 import { useSimulatedStocks } from '@/hooks/useSimulatedStocks'
 import { useMarketStore } from '@/lib/market-store'
 import { usePortfolioStore } from '@/lib/portfolio-store'
 
 type Timeframe = '1W' | '1M' | '3M' | '1Y'
+type ChartType = 'line' | 'candle'
 
 const TIMEFRAME_DAYS: Record<Timeframe, number> = {
   '1W': 7,
   '1M': 30,
   '3M': 90,
   '1Y': 365,
+}
+
+// Aggregation period based on timeframe for candlestick charts
+// 1W, 1M: Daily candles
+// 3M: Weekly candles
+// 1Y: Monthly candles
+const TIMEFRAME_AGGREGATION: Record<Timeframe, AggregationPeriod> = {
+  '1W': 'daily',
+  '1M': 'daily',
+  '3M': 'weekly',
+  '1Y': 'monthly',
 }
 
 interface CompanyDetailProps {
@@ -47,13 +68,21 @@ export function CompanyDetail({ company, history }: CompanyDetailProps) {
   const [quantity, setQuantity] = useState<string>('1')
   const [isProcessing, setIsProcessing] = useState(false)
   const [timeframe, setTimeframe] = useState<Timeframe>('1M')
+  const [chartType, setChartType] = useState<ChartType>('line')
   const queryClient = useQueryClient()
 
-  // Filter history based on selected timeframe
+  // Filter history based on selected timeframe (for line chart)
   const filteredHistory = useMemo(() => {
     const days = TIMEFRAME_DAYS[timeframe]
     return history.slice(-days)
   }, [history, timeframe])
+
+  // Fetch OHLC data for candlestick chart
+  const { data: ohlcData, isLoading: ohlcLoading } = useOHLCHistory(
+    TIMEFRAME_DAYS[timeframe],
+    String(company.id),
+    TIMEFRAME_AGGREGATION[timeframe],
+  )
 
   const buyStock = usePortfolioStore((state) => state.buyStock)
   const sellStock = usePortfolioStore((state) => state.sellStock)
@@ -166,9 +195,36 @@ export function CompanyDetail({ company, history }: CompanyDetailProps) {
         <div className="md:col-span-2 space-y-4">
           <div className="p-6 border border-gray-700 rounded bg-card">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold">
-                Price Chart ({timeframe})
-              </h2>
+              <div className="flex items-center gap-3">
+                <h2 className="text-xl font-semibold">
+                  Price Chart ({timeframe})
+                </h2>
+                {/* Chart type toggle */}
+                <div className="flex items-center border border-gray-700 rounded overflow-hidden">
+                  <button
+                    onClick={() => setChartType('line')}
+                    className={`p-1.5 transition-colors ${
+                      chartType === 'line'
+                        ? 'bg-cyan-600 text-white'
+                        : 'bg-transparent text-gray-400 hover:text-cyan-400'
+                    }`}
+                    title="Line Chart"
+                  >
+                    <LineChartIcon className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => setChartType('candle')}
+                    className={`p-1.5 transition-colors ${
+                      chartType === 'candle'
+                        ? 'bg-cyan-600 text-white'
+                        : 'bg-transparent text-gray-400 hover:text-cyan-400'
+                    }`}
+                    title="Candlestick Chart"
+                  >
+                    <CandlestickChartIcon className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
               <div className="flex items-center gap-2">
                 {(['1W', '1M', '3M', '1Y'] as Array<Timeframe>).map((tf) => (
                   <Button
@@ -188,60 +244,72 @@ export function CompanyDetail({ company, history }: CompanyDetailProps) {
               </div>
             </div>
             <div className="h-64 w-full">
-              <ChartContainer config={chartConfig} className="h-full w-full">
-                <LineChart data={filteredHistory}>
-                  <CartesianGrid
-                    vertical={false}
-                    stroke="rgba(255,255,255,0.1)"
-                  />
-                  <XAxis
-                    dataKey="date"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                    minTickGap={32}
-                    tickFormatter={(value) => {
-                      const date = new Date(value)
-                      return date.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                      })
-                    }}
-                  />
-                  <ChartTooltip
-                    content={
-                      <ChartTooltipContent
-                        labelFormatter={(value) => {
-                          const date = new Date(value)
-                          // Use current year for display (year-agnostic)
-                          const displayDate = new Date(
-                            new Date().getFullYear(),
-                            date.getMonth(),
-                            date.getDate(),
-                          )
-                          return displayDate.toLocaleDateString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric',
-                          })
-                        }}
-                      />
-                    }
-                  />
-                  <Line
-                    dataKey={company.name}
-                    type="monotone"
-                    stroke="var(--color-price)"
-                    strokeWidth={2}
-                    dot={false}
-                    style={
-                      {
-                        '--color-price': 'var(--color-primary)',
-                      } as React.CSSProperties
-                    }
-                  />
-                </LineChart>
-              </ChartContainer>
+              {chartType === 'line' ? (
+                <ChartContainer config={chartConfig} className="h-full w-full">
+                  <LineChart data={filteredHistory}>
+                    <CartesianGrid
+                      vertical={false}
+                      stroke="rgba(255,255,255,0.1)"
+                    />
+                    <XAxis
+                      dataKey="date"
+                      tickLine={false}
+                      axisLine={false}
+                      tickMargin={8}
+                      minTickGap={32}
+                      tickFormatter={(value) => {
+                        const date = new Date(value)
+                        return date.toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                        })
+                      }}
+                    />
+                    <ChartTooltip
+                      content={
+                        <ChartTooltipContent
+                          labelFormatter={(value) => {
+                            const date = new Date(value)
+                            // Use current year for display (year-agnostic)
+                            const displayDate = new Date(
+                              new Date().getFullYear(),
+                              date.getMonth(),
+                              date.getDate(),
+                            )
+                            return displayDate.toLocaleDateString('en-US', {
+                              month: 'short',
+                              day: 'numeric',
+                              year: 'numeric',
+                            })
+                          }}
+                        />
+                      }
+                    />
+                    <Line
+                      dataKey={company.name}
+                      type="monotone"
+                      stroke="var(--color-price)"
+                      strokeWidth={2}
+                      dot={false}
+                      style={
+                        {
+                          '--color-price': 'var(--color-primary)',
+                        } as React.CSSProperties
+                      }
+                    />
+                  </LineChart>
+                </ChartContainer>
+              ) : ohlcLoading ? (
+                <div className="h-full w-full flex items-center justify-center text-gray-500">
+                  Loading candlestick data...
+                </div>
+              ) : ohlcData && ohlcData.length > 0 ? (
+                <CandlestickChart data={ohlcData} companyName={company.name} />
+              ) : (
+                <div className="h-full w-full flex items-center justify-center text-gray-500">
+                  No OHLC data available
+                </div>
+              )}
             </div>
           </div>
 

@@ -121,7 +121,7 @@ export const LandingPage = () => {
             MARKET MOVERS
           </h2>
           <Link
-            to="/"
+            to="/market"
             className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
           >
             VIEW ALL <ArrowRight className="w-3 h-3" />
